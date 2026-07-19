@@ -64,21 +64,23 @@ const differentiators = [
   title="Abilene Eye Institute | Eye Doctors & Cataract, LASIK Surgeons in Abilene, TX"
   description="Advanced medical and surgical eye care in Abilene, Texas: cataract surgery, LASIK, glaucoma, and diabetic eye care, close to home for the Big Country."
 >
-  <!-- Hero: asymmetric split, calm, no exaggerated claims -->
+  <!-- Hero: asymmetric split with overlapping credential card -->
   <section class="bg-white">
-    <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 pb-14 pt-12 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:pb-20 lg:pt-16">
+    <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 pb-16 pt-12 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14 lg:pb-24 lg:pt-16">
       <div>
-        <h1 class="font-serif text-4xl font-semibold leading-tight text-navy-900 sm:text-5xl">
-          Advanced eye care. Personal attention. Close to home.
-        </h1>
-        <p class="mt-5 max-w-xl text-lg text-ink-soft">
-          Medical and surgical eye care for Abilene and the Big Country, coordinated by physicians
-          who know their patients.
+        <p class="text-sm font-semibold uppercase tracking-[0.18em] text-sage-700">
+          Medical &amp; Surgical Eye Care
         </p>
-        <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+        <h1 class="mt-4 font-serif text-[2.6rem] font-semibold leading-[1.08] tracking-tight text-navy-900 sm:text-6xl">
+          Advanced eye care.<br />Personal attention.<br />Close to home.
+        </h1>
+        <p class="mt-6 max-w-xl text-lg text-ink-soft">
+          Care for Abilene and the Big Country, coordinated by physicians who know their patients.
+        </p>
+        <div class="mt-9 flex flex-col gap-3 sm:flex-row">
           <a
             href={practice.links.requestAppointment}
-            class="inline-flex items-center justify-center rounded-md bg-navy-800 px-7 py-3.5 text-lg font-semibold text-white hover:bg-navy-700"
+            class="inline-flex items-center justify-center rounded-md bg-navy-800 px-7 py-3.5 text-lg font-semibold text-white shadow-sm shadow-navy-100 hover:bg-navy-700"
           >
             Request an Appointment
           </a>
@@ -90,38 +92,47 @@ const differentiators = [
           </a>
         </div>
       </div>
-      <ImagePlaceholder
-        label="Practice photography: physician with patient in exam room"
-        icon="ph:camera"
-        class="aspect-[4/3] w-full"
-      />
+      <div class="relative pb-10 lg:pb-12">
+        <ImagePlaceholder
+          label="Practice photography to be added"
+          mark="Est. 1987"
+          markSub="Abilene, Texas"
+          class="aspect-[4/3] w-full"
+        />
+        <div
+          class="absolute -bottom-0 left-6 right-6 rounded-md border border-sand-200 bg-white px-6 py-4 shadow-lg shadow-navy-900/10 sm:left-10 sm:right-auto"
+        >
+          <p class="font-serif text-lg font-semibold text-navy-900">Two surgeons. Three optometrists.</p>
+          <p class="mt-0.5 text-sm text-ink-soft">One coordinated practice for the Big Country.</p>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- Value-framing band: the calm sales layer -->
   <section class="border-y border-sand-200 bg-sand-100">
-    <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6">
-      <p class="mx-auto max-w-3xl text-center font-serif text-2xl text-navy-900">
-        Choosing eye surgery is a big decision. It should not require a big-city trip, or a website
-        that leaves you guessing.
-      </p>
-      <div class="mt-10 grid gap-8 md:grid-cols-3">
+    <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6">
+      <div class="max-w-3xl border-l-2 border-sage-600 pl-6 sm:pl-8">
+        <p class="font-serif text-2xl leading-snug text-navy-900 sm:text-[1.75rem]">
+          Choosing eye surgery is a big decision. It should not require a big-city trip, or a
+          website that leaves you guessing.
+        </p>
+      </div>
+      <div class="mt-12 grid gap-10 md:grid-cols-3 md:gap-8">
         {
-          differentiators.map((d) => (
-            <div class="flex gap-4">
-              <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white text-sage-700" aria-hidden="true">
-                <Icon name={d.icon} class="h-5 w-5" />
-              </span>
-              <div>
-                <h2 class="text-lg font-semibold text-navy-900">{d.title}</h2>
-                <p class="mt-1 text-ink-soft">{d.body}</p>
-              </div>
+          differentiators.map((d, i) => (
+            <div class="border-t border-sand-300 pt-5">
+              <p class="font-serif text-sm text-sage-700" aria-hidden="true">
+                {String(i + 1).padStart(2, '0')}
+              </p>
+              <h2 class="mt-2 text-lg font-semibold text-navy-900">{d.title}</h2>
+              <p class="mt-1.5 text-ink-soft">{d.body}</p>
             </div>
           ))
         }
       </div>
-      <p class="mt-8 text-center text-sm text-ink-soft">
-        Founding year and surgical facility details pending confirmation; see CONTENT-VERIFICATION.md.
+      <p class="mt-10 text-sm text-ink-soft/80">
+        Founding year and surgical facility details pending confirmation with the practice.
       </p>
     </div>
   </section>
@@ -246,11 +257,15 @@ const differentiators = [
 
   <!-- Reputation: honest placeholder, never fabricated -->
   <section class="border-t border-sand-200 bg-white">
-    <div class="mx-auto max-w-4xl px-4 py-14 text-center sm:px-6">
+    <div class="mx-auto max-w-3xl px-4 py-16 text-center sm:px-6">
+      <p class="font-serif text-6xl leading-none text-sage-600/40" aria-hidden="true">&ldquo;</p>
       <h2 class="font-serif text-3xl font-semibold text-navy-900">What patients say</h2>
-      <p class="mx-auto mt-4 max-w-2xl text-lg text-ink-soft">
-        Verified patient feedback will be added here following the practice's authorization, linked
-        to its live source. No reviews are reproduced without permission.
+      <p class="mx-auto mt-4 max-w-xl text-lg text-ink-soft">
+        Verified patient feedback appears here once the practice authorizes it, linked to its live
+        source. No reviews are ever reproduced without permission.
+      </p>
+      <p class="mt-6 text-xs uppercase tracking-[0.16em] text-ink-soft/60">
+        Reserved for verified reviews
       </p>
     </div>
   </section>
