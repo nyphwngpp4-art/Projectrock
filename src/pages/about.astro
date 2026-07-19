@@ -1,0 +1,71 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import CtaBand from '../components/CtaBand.astro';
+import ImagePlaceholder from '../components/ImagePlaceholder.astro';
+import { practice } from '../data/practice';
+---
+
+<BaseLayout
+  title="About Abilene Eye Institute | Eye Care in Abilene, TX Since 1987"
+  description="The story of Abilene Eye Institute: an established medical and surgical eye care practice serving Abilene and the Big Country region of West Texas."
+>
+  <section class="bg-white">
+    <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 pb-14 pt-12 sm:px-6 lg:grid-cols-2 lg:pt-16">
+      <div>
+        <h1 class="font-serif text-4xl font-semibold leading-tight text-navy-900 sm:text-5xl">
+          A regional institution for eye care
+        </h1>
+        <p class="mt-5 text-lg text-ink-soft">
+          Abilene Eye Institute has served Abilene and the Big Country since 1987, providing medical
+          and surgical eye care so that patients across the region do not have to travel far from
+          home for it.
+        </p>
+        <p class="mt-3 text-sm text-ink-soft">Founding year pending final confirmation with the practice.</p>
+      </div>
+      <ImagePlaceholder
+        label="Practice photography: building exterior at 2120 Antilley Rd"
+        icon="ph:buildings"
+        class="aspect-[4/3] w-full"
+      />
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-4 py-14 sm:px-6">
+    <SectionHeading title="How we practice" />
+    <div class="mt-8 space-y-6 text-lg text-ink-soft">
+      <p>
+        Our physicians and optometrists work as one team. Routine exams, surgical evaluation,
+        surgery, and follow-up care are coordinated within the practice, so nothing about your care
+        gets lost between offices.
+      </p>
+      <p>
+        We explain findings in plain language and give honest recommendations, including the
+        recommendation to wait when waiting is the right answer. Patients and their families make
+        the decisions; our job is to make those decisions clear.
+      </p>
+      <p>
+        Surgical procedures are performed in coordination with our surgery center relationship.
+        Details of the surgical facility will be described here once confirmed with the practice.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-white">
+    <div class="mx-auto max-w-4xl px-4 py-14 sm:px-6">
+      <SectionHeading
+        title="Communities we serve"
+        intro="Patients travel to us from across the Big Country. We do our best to make visits efficient for anyone driving in."
+      />
+      <ul class="mt-7 flex flex-wrap gap-2.5">
+        {
+          practice.serviceArea.map((city) => (
+            <li class="rounded-full bg-sand-100 px-4 py-1.5 font-medium text-navy-800">{city}</li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <CtaBand />
+</BaseLayout>

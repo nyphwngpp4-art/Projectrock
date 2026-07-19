@@ -1,0 +1,29 @@
+---
+import { Icon } from 'astro-icon/components';
+
+/**
+ * Honestly-labeled slot for practice photography.
+ * Every instance is tracked in ASSET-INVENTORY.md and swaps for a real
+ * image during production. Nothing here misrepresents the facility.
+ */
+interface Props {
+  label: string;
+  class?: string;
+  icon?: string;
+}
+const { label, class: className = '', icon = 'ph:image' } = Astro.props;
+---
+
+<div
+  class:list={[
+    'flex items-center justify-center rounded-lg border border-sand-300 bg-gradient-to-br from-navy-50 via-sand-100 to-sage-50',
+    className,
+  ]}
+  role="img"
+  aria-label={label}
+>
+  <div class="px-6 text-center text-navy-700">
+    <Icon name={icon} class="mx-auto h-8 w-8 opacity-60" aria-hidden="true" />
+    <p class="mt-2 text-sm font-medium">{label}</p>
+  </div>
+</div>

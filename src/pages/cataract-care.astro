@@ -1,0 +1,152 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import CtaBand from '../components/CtaBand.astro';
+import DoctorCard from '../components/DoctorCard.astro';
+import Faq from '../components/Faq.astro';
+import { doctors } from '../data/doctors';
+
+const surgeons = doctors.filter((d) => d.degree === 'MD');
+
+const faqs = [
+  {
+    q: 'Does cataract surgery hurt?',
+    a: 'The eye is numbed for the procedure and most patients report pressure rather than pain. Your care team explains exactly what to expect before surgery and how comfort is managed.',
+  },
+  {
+    q: 'How long does recovery take?',
+    a: 'Many patients notice clearer vision within days, with vision continuing to settle over the following weeks. Your surgeon gives you specific guidance for activities, drops, and follow-up visits.',
+  },
+  {
+    q: 'Will I still need glasses afterward?',
+    a: 'It depends on the replacement lens chosen and your eyes. Some patients need glasses less than before, and some still use them for certain tasks. This is exactly what the lens discussion at your consultation is for.',
+  },
+  {
+    q: 'Is cataract surgery covered by insurance?',
+    a: 'Medically necessary cataract surgery is generally covered by Medicare and most medical insurance. Certain premium lens choices may involve additional cost. The office reviews your specific coverage with you.',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+
+const symptoms = [
+  'Cloudy, blurry, or dim vision',
+  'Glare and halos, especially driving at night',
+  'Colors that look faded or yellowed',
+  'Needing brighter light to read',
+  'Frequent prescription changes that no longer help',
+];
+---
+
+<BaseLayout
+  title="Cataract Surgery & Evaluation in Abilene, TX | Abilene Eye Institute"
+  description="Cataract symptoms, evaluation, surgery, and lens options explained in plain language by the cataract surgeons of Abilene Eye Institute in Abilene, Texas."
+  schema={[faqSchema]}
+>
+  <section class="bg-white">
+    <div class="mx-auto max-w-4xl px-4 pb-12 pt-12 sm:px-6 lg:pt-16">
+      <h1 class="font-serif text-4xl font-semibold leading-tight text-navy-900 sm:text-5xl">
+        Cataract care, step by step
+      </h1>
+      <p class="mt-5 max-w-2xl text-lg text-ink-soft">
+        Cataracts are one of the most common causes of cloudy vision with age, and cataract surgery
+        is one of the most frequently performed procedures in medicine. Here is what to expect, in
+        plain language.
+      </p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-4 py-14 sm:px-6">
+    <SectionHeading
+      title="Signs it may be time for an evaluation"
+      intro="A cataract is a gradual clouding of the eye's natural lens. Common signs include:"
+    />
+    <ul class="mt-6 grid gap-3 sm:grid-cols-2">
+      {
+        symptoms.map((s) => (
+          <li class="flex items-start gap-3 rounded-md bg-white p-4 border border-sand-200">
+            <span class="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-sage-600" aria-hidden="true" />
+            {s}
+          </li>
+        ))
+      }
+    </ul>
+    <p class="mt-6 text-ink-soft">
+      These signs can have causes other than cataract. An evaluation tells you what is actually
+      going on, and noticing them does not mean you need surgery today. Many patients monitor a
+      cataract for years before it interferes with daily life.
+    </p>
+  </section>
+
+  <section class="bg-white">
+    <div class="mx-auto max-w-4xl px-4 py-14 sm:px-6">
+      <SectionHeading title="What happens at the consultation" />
+      <ol class="mt-8 space-y-5">
+        {
+          [
+            ['A dilated exam', 'Your doctor examines the lens and the overall health of your eye to confirm whether a cataract explains your symptoms.'],
+            ['Measurements', 'If surgery is appropriate, precise measurements of your eye guide the choice of replacement lens.'],
+            ['An honest conversation', 'Your surgeon explains whether surgery would help now, what it involves, and what results are realistic for your eyes. The decision is yours.'],
+          ].map(([t, b], i) => (
+            <li class="flex gap-4">
+              <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-navy-800 font-semibold text-white" aria-hidden="true">{i + 1}</span>
+              <div>
+                <h3 class="text-lg font-semibold text-navy-900">{t}</h3>
+                <p class="mt-1 text-ink-soft">{b}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-4 py-14 sm:px-6">
+    <SectionHeading title="About the surgery" />
+    <p class="mt-5 text-ink-soft">
+      Cataract surgery removes the clouded natural lens and replaces it with a clear artificial
+      lens. The procedure itself is typically brief and performed on an outpatient basis, one eye at
+      a time. Most patients go home the same day and begin a short course of eye drops.
+    </p>
+    <div id="lens-options" class="mt-8 scroll-mt-24 rounded-lg border border-sand-200 bg-white p-7">
+      <h3 class="font-serif text-2xl font-semibold text-navy-900">Choosing a replacement lens</h3>
+      <p class="mt-3 text-ink-soft">
+        Replacement lenses come in several designs. Standard lenses focus at one distance; other
+        designs aim to reduce dependence on glasses for both distance and near vision, or to correct
+        astigmatism. No lens is right for everyone. Your surgeon will explain which designs suit
+        your eyes, your habits, and your budget, including what insurance typically covers.
+      </p>
+    </div>
+    <p class="mt-6 text-sm text-ink-soft">
+      Educational information only. Outcomes vary by individual, and no result can be promised.
+      Whether surgery or any particular lens is appropriate for you is determined with your doctor.
+    </p>
+  </section>
+
+  <section class="bg-white">
+    <div class="mx-auto max-w-4xl px-4 py-14 sm:px-6">
+      <SectionHeading title="Common questions" />
+      <div class="mt-8"><Faq items={faqs} /></div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-7xl px-4 py-14 sm:px-6">
+    <SectionHeading title="Your cataract surgeons" />
+    <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:max-w-3xl">
+      {surgeons.map((d) => <DoctorCard doctor={d} />)}
+    </div>
+  </section>
+
+  <CtaBand
+    title="Wondering whether it's time?"
+    body="A cataract evaluation answers the question. Call the office or request an appointment."
+  />
+</BaseLayout>

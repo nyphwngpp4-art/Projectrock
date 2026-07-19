@@ -1,0 +1,32 @@
+---
+import { Icon } from 'astro-icon/components';
+import type { Service } from '../data/services';
+
+interface Props {
+  service: Service;
+}
+const { service } = Astro.props;
+---
+
+<article class="flex h-full flex-col rounded-lg border border-sand-200 bg-white p-6">
+  <div class="flex items-center gap-3">
+    <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-navy-50 text-navy-700" aria-hidden="true">
+      <Icon name={service.icon} class="h-5 w-5" />
+    </span>
+    <h3 class="font-serif text-lg font-semibold text-navy-900">{service.title}</h3>
+  </div>
+  <dl class="mt-4 flex-1 space-y-3 text-[0.95rem]">
+    <div>
+      <dt class="font-semibold text-ink">What it addresses</dt>
+      <dd class="text-ink-soft">{service.addresses}</dd>
+    </div>
+    <div>
+      <dt class="font-semibold text-ink">Why get evaluated</dt>
+      <dd class="text-ink-soft">{service.whyEvaluate}</dd>
+    </div>
+  </dl>
+  <a href={service.href} class="mt-4 inline-flex items-center gap-1.5 font-semibold text-navy-700 hover:underline">
+    {service.nextStep}
+    <Icon name="ph:arrow-right" class="h-4 w-4" aria-hidden="true" />
+  </a>
+</article>

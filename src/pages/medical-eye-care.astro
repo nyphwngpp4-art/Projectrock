@@ -1,0 +1,96 @@
+---
+import { Icon } from 'astro-icon/components';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { practice } from '../data/practice';
+
+const conditions = [
+  {
+    id: 'glaucoma',
+    title: 'Glaucoma',
+    body: 'Glaucoma damages the optic nerve, usually from elevated pressure inside the eye, and often has no symptoms until vision is lost. It is managed, not cured: regular monitoring, drops, laser treatment, or surgery protect the sight you have. Our physicians provide both medical and surgical glaucoma care.',
+    seek: 'Adults with a family history of glaucoma, and everyone over 60, benefit from regular pressure checks.',
+  },
+  {
+    id: 'diabetes',
+    title: 'Diabetic Eye Disease',
+    body: 'Diabetes can damage the small blood vessels of the retina before you notice any change in vision. An annual dilated eye exam catches these changes early, when treatment protects sight best. We coordinate findings with your primary care physician or endocrinologist.',
+    seek: 'Everyone living with diabetes should have a dilated eye exam at least once a year, even with perfect vision.',
+  },
+  {
+    id: 'macular-degeneration',
+    title: 'Macular Degeneration',
+    body: 'Age-related macular degeneration affects the central vision used for reading and recognizing faces. Early detection matters: monitoring and treatment options depend on the form and stage. We evaluate, monitor, and coordinate care with retina specialists when advanced treatment is needed.',
+    seek: 'Blurring or distortion in the center of your vision, or straight lines that look wavy, deserve prompt evaluation.',
+  },
+  {
+    id: 'dry-eye',
+    title: 'Dry Eye',
+    body: 'Burning, gritty, tired, or watery eyes are common in the West Texas wind and dust, and they have treatable causes. An evaluation identifies whether the problem is tear quantity, tear quality, or the eyelids themselves, and treatment is matched to the cause.',
+    seek: 'Dryness that interferes with reading, screens, or comfort day to day is worth an evaluation.',
+  },
+];
+---
+
+<BaseLayout
+  title="Medical Eye Care in Abilene, TX: Glaucoma, Diabetic Eye Disease | Abilene Eye Institute"
+  description="Medical care for glaucoma, diabetic eye disease, macular degeneration, and dry eye in Abilene, Texas, with clear guidance on when to seek urgent care."
+>
+  <section class="bg-white">
+    <div class="mx-auto max-w-4xl px-4 pb-12 pt-12 sm:px-6 lg:pt-16">
+      <h1 class="font-serif text-4xl font-semibold leading-tight text-navy-900 sm:text-5xl">
+        Medical eye care
+      </h1>
+      <p class="mt-5 max-w-2xl text-lg text-ink-soft">
+        Some eye conditions need ongoing medical attention, not a one-time fix. Our physicians
+        manage these conditions over time, close to home, in coordination with your other doctors.
+      </p>
+    </div>
+  </section>
+
+  <!-- Emergency guidance stays high on the page, before condition content -->
+  <section class="mx-auto max-w-4xl px-4 pt-10 sm:px-6">
+    <div class="rounded-lg border-2 border-navy-800 bg-navy-50 p-6">
+      <h2 class="flex items-center gap-2 font-serif text-2xl font-semibold text-navy-900">
+        <Icon name="ph:warning-circle" class="h-7 w-7" aria-hidden="true" />
+        Sudden vision problems need immediate care
+      </h2>
+      <p class="mt-3 text-lg">
+        Sudden vision loss, a curtain or shadow across your vision, a sudden burst of new floaters
+        or flashes, severe eye pain, or an eye injury should not wait for a routine appointment.
+        <strong>Call us immediately at
+          <a href={practice.phone.href} class="whitespace-nowrap underline">{practice.phone.display}</a>
+        </strong>
+        during office hours, or go to the nearest emergency room. In an emergency, call 911.
+      </p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-4 py-14 sm:px-6">
+    <SectionHeading title="Conditions we manage" />
+    <div class="mt-8 space-y-6">
+      {
+        conditions.map((c) => (
+          <article id={c.id} class="scroll-mt-24 rounded-lg border border-sand-200 bg-white p-7">
+            <h3 class="font-serif text-2xl font-semibold text-navy-900">{c.title}</h3>
+            <p class="mt-3 text-ink-soft">{c.body}</p>
+            <p class="mt-4 rounded-md bg-sage-50 p-4 text-[0.95rem]">
+              <strong class="text-sage-700">When to be seen:</strong> {c.seek}
+            </p>
+          </article>
+        ))
+      }
+    </div>
+    <p class="mt-8 text-sm text-ink-soft">
+      This page is educational and is not a diagnostic tool. It does not list every condition we
+      treat. If something about your vision worries you, call the office and describe it; our team
+      will guide you to the right visit.
+    </p>
+  </section>
+
+  <CtaBand
+    title="Protecting sight is a long game"
+    body="Regular monitoring is how these conditions stay controlled. Call to schedule an evaluation or your annual exam."
+  />
+</BaseLayout>

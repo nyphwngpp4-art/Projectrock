@@ -1,0 +1,98 @@
+---
+import { practice } from '../data/practice';
+
+const year = new Date().getFullYear();
+
+const patientLinks = [
+  { label: 'Request an Appointment', href: practice.links.requestAppointment },
+  { label: 'Patient Portal', href: practice.links.patientPortal },
+  { label: 'Pay Your Bill', href: practice.links.payBill },
+  { label: 'Patient Resources', href: '/patient-resources/' },
+];
+
+const providerLinks = [
+  { label: 'Referring Providers', href: '/referring-providers/' },
+  { label: 'Send a Referral', href: practice.links.providerReferral },
+];
+
+const aboutLinks = [
+  { label: 'About the Practice', href: '/about/' },
+  { label: 'Our Doctors', href: '/doctors/' },
+  { label: 'Locations & Directions', href: '/locations/' },
+];
+---
+
+<footer class="bg-navy-900 text-navy-100">
+  <div class="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-2 lg:grid-cols-4">
+    <div>
+      <p class="font-serif text-xl font-semibold text-white">Abilene Eye Institute</p>
+      <address class="mt-3 not-italic leading-relaxed">
+        {practice.address.street}<br />
+        {practice.address.city}, {practice.address.state} {practice.address.zip}
+      </address>
+      <p class="mt-3">
+        <a href={practice.phone.href} class="font-semibold text-white hover:underline">
+          {practice.phone.display}
+        </a>
+      </p>
+      <dl class="mt-4 space-y-1 text-sm">
+        {
+          practice.hours.map((h) => (
+            <div class="flex justify-between gap-4">
+              <dt>{h.days}</dt>
+              <dd>{h.hours}</dd>
+            </div>
+          ))
+        }
+      </dl>
+      <p class="mt-2 text-xs text-navy-100/70">Hours pending confirmation with the practice.</p>
+    </div>
+
+    <nav aria-label="Patient links">
+      <h2 class="text-sm font-semibold uppercase tracking-wider text-white">For Patients</h2>
+      <ul class="mt-4 space-y-2.5">
+        {patientLinks.map((l) => <li><a href={l.href} class="hover:text-white hover:underline">{l.label}</a></li>)}
+      </ul>
+    </nav>
+
+    <nav aria-label="Provider links">
+      <h2 class="text-sm font-semibold uppercase tracking-wider text-white">For Providers</h2>
+      <ul class="mt-4 space-y-2.5">
+        {providerLinks.map((l) => <li><a href={l.href} class="hover:text-white hover:underline">{l.label}</a></li>)}
+      </ul>
+      <h2 class="mt-8 text-sm font-semibold uppercase tracking-wider text-white">Practice</h2>
+      <ul class="mt-4 space-y-2.5">
+        {aboutLinks.map((l) => <li><a href={l.href} class="hover:text-white hover:underline">{l.label}</a></li>)}
+      </ul>
+    </nav>
+
+    <div class="text-sm leading-relaxed">
+      <h2 class="text-sm font-semibold uppercase tracking-wider text-white">Important</h2>
+      <p class="mt-4">
+        <strong class="text-white">If you are experiencing a medical emergency, call 911.</strong>
+        For sudden vision loss, eye injury, or severe eye pain, seek immediate medical care.
+      </p>
+      <p class="mt-4">
+        This website provides general information and does not offer medical advice, diagnosis, or
+        treatment.
+      </p>
+      <ul class="mt-4 space-y-2">
+        <li><a href="/privacy/" class="underline hover:text-white">Privacy Notice</a></li>
+        <li><a href="/accessibility/" class="underline hover:text-white">Accessibility Statement</a></li>
+      </ul>
+      <p class="mt-4 text-navy-100/70">
+        Non-discrimination notice to be added following review by the practice.
+      </p>
+    </div>
+  </div>
+
+  <div class="border-t border-navy-700">
+    <div class="mx-auto max-w-7xl px-4 py-5 text-xs text-navy-100/70 sm:px-6">
+      <p>&copy; {year} Abilene Eye Institute. All rights reserved.</p>
+      <p class="mt-1">
+        Concept demonstration prepared by Agavi AI LLC. This is not the practice's live website and
+        it collects no patient information.
+      </p>
+    </div>
+  </div>
+</footer>

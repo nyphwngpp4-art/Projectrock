@@ -1,0 +1,6 @@
+# Stage 1 concept demo: not intended for search indexing until the practice
+# approves launch. Remove the Disallow and keep the Sitemap line at launch.
+User-agent: *
+Disallow: /
+
+Sitemap: https://abilene-eye-demo.pages.dev/sitemap-index.xml

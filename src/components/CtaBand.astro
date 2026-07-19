@@ -1,0 +1,35 @@
+---
+import { Icon } from 'astro-icon/components';
+import { practice } from '../data/practice';
+
+interface Props {
+  title?: string;
+  body?: string;
+}
+const {
+  title = 'Ready to take the next step?',
+  body = 'Call the office or request an appointment. A member of our team will help you find the right visit.',
+} = Astro.props;
+---
+
+<section class="bg-navy-800">
+  <div class="mx-auto max-w-4xl px-4 py-14 text-center sm:px-6">
+    <h2 class="font-serif text-3xl font-semibold text-white">{title}</h2>
+    <p class="mx-auto mt-3 max-w-2xl text-lg text-navy-100">{body}</p>
+    <div class="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
+      <a
+        href={practice.phone.href}
+        class="inline-flex w-full items-center justify-center gap-2 rounded-md bg-white px-6 py-3.5 text-lg font-semibold text-navy-900 hover:bg-sand-100 sm:w-auto"
+      >
+        <Icon name="ph:phone" class="h-5 w-5" aria-hidden="true" />
+        Call {practice.phone.display}
+      </a>
+      <a
+        href={practice.links.requestAppointment}
+        class="inline-flex w-full items-center justify-center rounded-md border-2 border-white px-6 py-3.5 text-lg font-semibold text-white hover:bg-navy-700 sm:w-auto"
+      >
+        Request Appointment
+      </a>
+    </div>
+  </div>
+</section>

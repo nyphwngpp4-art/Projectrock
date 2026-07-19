@@ -1,0 +1,398 @@
+---
+import { Icon } from 'astro-icon/components';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Faq from '../components/Faq.astro';
+import { practice } from '../data/practice';
+
+const faqs = [
+  {
+    q: 'How do I know if I am a candidate for LASIK?',
+    a: 'Candidacy depends on your prescription, the health and shape of your eyes, and your stage of life. The only way to know is a consultation that includes measurements of your eyes. General factors include stable vision, healthy corneas, and adult age.',
+  },
+  {
+    q: 'What if LASIK is not right for me?',
+    a: 'Many patients who are not suited to LASIK are good candidates for another approach, such as an implantable lens or refractive lens exchange. Your surgeon will explain which options fit your eyes and why.',
+  },
+  {
+    q: 'Does insurance cover vision correction surgery?',
+    a: 'Elective vision correction is usually not covered by medical insurance. Financing options are commonly available; our team can walk you through them during your consultation.',
+  },
+  {
+    q: 'How long is the consultation?',
+    a: 'Plan for a thorough visit that includes measurements and time with the doctor to talk through your goals and options. The office will give you specifics when you schedule.',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+---
+
+<BaseLayout
+  title="LASIK & Vision Correction in Abilene, TX | Abilene Eye Institute"
+  description="LASIK, implantable contact lenses, and refractive lens exchange in Abilene, Texas. Take a two-minute self-assessment and find out whether a consultation makes sense for you."
+  schema={[faqSchema]}
+>
+  <section class="bg-white">
+    <div class="mx-auto max-w-4xl px-4 pb-12 pt-12 sm:px-6 lg:pt-16">
+      <h1 class="font-serif text-4xl font-semibold leading-tight text-navy-900 sm:text-5xl">
+        Vision correction, explained honestly
+      </h1>
+      <p class="mt-5 max-w-2xl text-lg text-ink-soft">
+        If you are tired of glasses or contacts, you have options. Which one fits depends on your
+        eyes, your age, and how you live. Here is how to think about them.
+      </p>
+      <a
+        href="#self-assessment"
+        class="mt-7 inline-flex items-center gap-2 rounded-md bg-sage-600 px-6 py-3.5 text-lg font-semibold text-white hover:bg-sage-700"
+      >
+        <Icon name="ph:clipboard-text" class="h-5 w-5" aria-hidden="true" />
+        Take the Self-Assessment
+      </a>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-4 py-14 sm:px-6">
+    <SectionHeading title="The three main paths" />
+    <div class="mt-8 space-y-6">
+      <article id="lasik" class="rounded-lg border border-sand-200 bg-white p-7">
+        <h3 class="font-serif text-2xl font-semibold text-navy-900">LASIK</h3>
+        <p class="mt-3 text-ink-soft">
+          A laser procedure that reshapes the cornea to correct nearsightedness, farsightedness, and
+          astigmatism. It is typically quick, and most patients notice improved vision within days.
+          LASIK suits adults with stable prescriptions and healthy corneas.
+        </p>
+      </article>
+      <article id="icl" class="rounded-lg border border-sand-200 bg-white p-7">
+        <h3 class="font-serif text-2xl font-semibold text-navy-900">Implantable Contact Lenses (ICL)</h3>
+        <p class="mt-3 text-ink-soft">
+          A thin lens placed inside the eye, working with your natural lens. Often considered for
+          higher prescriptions or thinner corneas where LASIK may not be the best fit. The lens is
+          not visible or felt, and the procedure is reversible.
+        </p>
+      </article>
+      <article id="rle" class="rounded-lg border border-sand-200 bg-white p-7">
+        <h3 class="font-serif text-2xl font-semibold text-navy-900">Refractive Lens Exchange</h3>
+        <p class="mt-3 text-ink-soft">
+          Replaces the eye's natural lens with an artificial one, the same fundamental procedure as
+          cataract surgery, done before a cataract develops. Often discussed with adults whose
+          reading vision has begun to change with age.
+        </p>
+      </article>
+    </div>
+    <p class="mt-6 text-sm text-ink-soft">
+      This information is educational and is not medical advice. Whether any procedure is
+      appropriate for you can only be determined in an examination with your doctor.
+    </p>
+  </section>
+
+  <!-- Self-assessment: lifestyle and preference questions only. No symptoms,
+       no diagnoses, no medical history. Nothing typed here is stored or sent
+       anywhere; see HIPAA-BOUNDARIES.md. -->
+  <section id="self-assessment" class="border-y border-sand-200 bg-navy-50 scroll-mt-24">
+    <div class="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+      <SectionHeading
+        title="Is a vision correction consultation right for you?"
+        intro="Four quick questions about how you live, not your medical history. Takes about two minutes. Your answers stay on this page; nothing is saved or sent."
+      />
+
+      <form id="quiz" class="mt-9 rounded-lg border border-sand-200 bg-white p-6 sm:p-8" novalidate>
+        <p id="quiz-progress" class="text-sm font-semibold uppercase tracking-wide text-sage-700" aria-live="polite">
+          Question 1 of 4
+        </p>
+
+        <fieldset class="quiz-step mt-4" data-step="1">
+          <legend class="text-xl font-semibold text-navy-900">Which age range are you in?</legend>
+          <p class="mt-1 text-sm text-ink-soft">A range is all we need; different stages of life fit different options.</p>
+          <div class="mt-4 grid gap-3 sm:grid-cols-2">
+            {
+              ['Under 21', '21 to 39', '40 to 54', '55 or older'].map((label, i) => (
+                <label class="flex cursor-pointer items-center gap-3 rounded-md border border-sand-300 px-4 py-3.5 text-lg has-checked:border-navy-600 has-checked:bg-navy-50">
+                  <input type="radio" name="age" value={String(i)} class="h-5 w-5 accent-navy-700" />
+                  {label}
+                </label>
+              ))
+            }
+          </div>
+        </fieldset>
+
+        <fieldset class="quiz-step mt-4 hidden" data-step="2">
+          <legend class="text-xl font-semibold text-navy-900">What do you currently use to see clearly?</legend>
+          <div class="mt-4 grid gap-3 sm:grid-cols-2">
+            {
+              ['Glasses', 'Contact lenses', 'Both glasses and contacts', 'Mostly just reading glasses'].map((label, i) => (
+                <label class="flex cursor-pointer items-center gap-3 rounded-md border border-sand-300 px-4 py-3.5 text-lg has-checked:border-navy-600 has-checked:bg-navy-50">
+                  <input type="radio" name="wear" value={String(i)} class="h-5 w-5 accent-navy-700" />
+                  {label}
+                </label>
+              ))
+            }
+          </div>
+        </fieldset>
+
+        <fieldset class="quiz-step mt-4 hidden" data-step="3">
+          <legend class="text-xl font-semibold text-navy-900">Which of these fill your week? Choose any that apply.</legend>
+          <div class="mt-4 grid gap-3 sm:grid-cols-2">
+            {
+              [
+                'Outdoor work or time outdoors',
+                'Sports and staying active',
+                'Long hours at a screen',
+                'A lot of driving, including at night',
+                'Reading and close-up hobbies',
+              ].map((label, i) => (
+                <label class="flex cursor-pointer items-center gap-3 rounded-md border border-sand-300 px-4 py-3.5 text-lg has-checked:border-navy-600 has-checked:bg-navy-50">
+                  <input type="checkbox" name="activities" value={String(i)} class="h-5 w-5 accent-navy-700" />
+                  {label}
+                </label>
+              ))
+            }
+          </div>
+        </fieldset>
+
+        <fieldset class="quiz-step mt-4 hidden" data-step="4">
+          <legend class="text-xl font-semibold text-navy-900">What has you thinking about vision correction now?</legend>
+          <div class="mt-4 grid gap-3">
+            {
+              [
+                'Tired of the daily hassle of glasses or contacts',
+                'Glasses or contacts get in the way of work or activities',
+                'Thinking about it for a while and ready to learn more',
+                'Just curious about whether it could fit me',
+              ].map((label, i) => (
+                <label class="flex cursor-pointer items-center gap-3 rounded-md border border-sand-300 px-4 py-3.5 text-lg has-checked:border-navy-600 has-checked:bg-navy-50">
+                  <input type="radio" name="motivation" value={String(i)} class="h-5 w-5 accent-navy-700" />
+                  {label}
+                </label>
+              ))
+            }
+          </div>
+        </fieldset>
+
+        <p id="quiz-error" class="mt-4 hidden font-medium text-red-700" role="alert">
+          Please choose an answer to continue.
+        </p>
+
+        <div class="mt-7 flex items-center justify-between">
+          <button
+            type="button"
+            id="quiz-back"
+            class="invisible rounded-md border border-sand-300 px-5 py-2.5 font-semibold text-navy-800 hover:bg-sand-100"
+          >
+            Back
+          </button>
+          <button
+            type="button"
+            id="quiz-next"
+            class="rounded-md bg-navy-800 px-7 py-3 text-lg font-semibold text-white hover:bg-navy-700"
+          >
+            Continue
+          </button>
+        </div>
+      </form>
+
+      <!-- Result: soft, honest close. Rendered by the script below. -->
+      <div id="quiz-result" class="mt-9 hidden rounded-lg border border-sage-100 bg-white p-6 sm:p-8" tabindex="-1">
+        <h3 class="font-serif text-2xl font-semibold text-navy-900">Thanks for sharing your goals</h3>
+        <p id="result-body" class="mt-3 text-lg text-ink-soft"></p>
+        <p class="mt-3 text-ink-soft">
+          Based on your goals, a consultation is the right next step. A coordinator can talk through
+          your options, answer questions, and help you decide if you want to go further. There is no
+          obligation.
+        </p>
+        <div class="mt-6 flex flex-col gap-3 sm:flex-row">
+          <a
+            href={practice.phone.href}
+            class="inline-flex items-center justify-center gap-2 rounded-md bg-navy-800 px-6 py-3.5 text-lg font-semibold text-white hover:bg-navy-700"
+          >
+            <Icon name="ph:phone" class="h-5 w-5" aria-hidden="true" />
+            Call {practice.phone.display}
+          </a>
+          <a
+            href={practice.links.requestAppointment}
+            class="inline-flex items-center justify-center rounded-md border-2 border-navy-800 px-6 py-3.5 text-lg font-semibold text-navy-800 hover:bg-navy-50"
+          >
+            Request Appointment
+          </a>
+        </div>
+
+        <div class="mt-8 border-t border-sand-200 pt-6">
+          <h4 class="text-lg font-semibold text-navy-900">Prefer a callback?</h4>
+          <p class="mt-1 text-sm text-ink-soft">
+            Optional. In this demonstration nothing you type is stored or sent; in production this
+            connects to the practice's approved contact system.
+          </p>
+          <div class="mt-4 grid gap-4 sm:grid-cols-2">
+            <div class="grid gap-2">
+              <label for="cb-name" class="font-medium text-ink">First name</label>
+              <input
+                type="text"
+                id="cb-name"
+                name="cb-name"
+                autocomplete="given-name"
+                class="rounded-md border border-sand-300 px-4 py-3 text-lg"
+              />
+            </div>
+            <div class="grid gap-2">
+              <label for="cb-phone" class="font-medium text-ink">Phone number</label>
+              <input
+                type="tel"
+                id="cb-phone"
+                name="cb-phone"
+                autocomplete="tel"
+                class="rounded-md border border-sand-300 px-4 py-3 text-lg"
+              />
+            </div>
+          </div>
+          <button
+            type="button"
+            id="cb-submit"
+            class="mt-4 rounded-md bg-sage-600 px-6 py-3 font-semibold text-white hover:bg-sage-700"
+          >
+            Request Callback
+          </button>
+          <p id="cb-confirm" class="mt-3 hidden font-medium text-sage-700" role="status">
+            Thank you. In the live version of this site, a coordinator would call you back. This
+            demonstration stored nothing.
+          </p>
+        </div>
+      </div>
+
+      <noscript>
+        <p class="mt-6 rounded-md border border-sand-300 bg-white p-5 text-lg">
+          The self-assessment needs JavaScript. You can skip it entirely: call
+          <a href={practice.phone.href} class="font-semibold text-navy-700 underline">{practice.phone.display}</a>
+          and a coordinator will talk through your options.
+        </p>
+      </noscript>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-4 py-14 sm:px-6">
+    <SectionHeading title="What the consultation involves" />
+    <ol class="mt-8 space-y-5">
+      {
+        [
+          ['Measurements', 'Detailed, painless measurements of your eyes, including the shape and thickness of your corneas.'],
+          ['A conversation about your life', 'Your work, hobbies, driving, and reading habits all shape which option serves you best.'],
+          ['A clear recommendation', 'Your surgeon explains which options fit your eyes, which do not, and why, so you can decide without pressure.'],
+        ].map(([title, body], i) => (
+          <li class="flex gap-4">
+            <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-navy-800 font-semibold text-white" aria-hidden="true">
+              {i + 1}
+            </span>
+            <div>
+              <h3 class="text-lg font-semibold text-navy-900">{title}</h3>
+              <p class="mt-1 text-ink-soft">{body}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+    <p class="mt-8 rounded-md bg-sand-100 p-5 text-ink-soft">
+      <strong class="text-navy-900">Financing:</strong> financing information will be linked here
+      once the practice confirms its current financing partners.
+    </p>
+  </section>
+
+  <section class="bg-white">
+    <div class="mx-auto max-w-4xl px-4 py-14 sm:px-6">
+      <SectionHeading title="Common questions" />
+      <div class="mt-8">
+        <Faq items={faqs} />
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    title="Talk it through with a coordinator"
+    body="No pressure, no obligation. Call the office and ask anything about LASIK, lenses, or scheduling a consultation."
+  />
+</BaseLayout>
+
+<script>
+  // PHI-free self-assessment. All state lives in this closure; answers are
+  // never persisted, transmitted, or written anywhere outside the page.
+  const steps = Array.from(document.querySelectorAll<HTMLFieldSetElement>('.quiz-step'));
+  const next = document.getElementById('quiz-next');
+  const back = document.getElementById('quiz-back');
+  const progress = document.getElementById('quiz-progress');
+  const error = document.getElementById('quiz-error');
+  const form = document.getElementById('quiz');
+  const result = document.getElementById('quiz-result');
+  const resultBody = document.getElementById('result-body');
+  let current = 0;
+
+  function render() {
+    steps.forEach((s, i) => s.classList.toggle('hidden', i !== current));
+    if (progress) progress.textContent = `Question ${current + 1} of ${steps.length}`;
+    back?.classList.toggle('invisible', current === 0);
+    if (next) next.textContent = current === steps.length - 1 ? 'See My Result' : 'Continue';
+    error?.classList.add('hidden');
+  }
+
+  function stepAnswered(): boolean {
+    // Step 3 (activities) is multi-select and optional; radios require a choice.
+    const inputs = steps[current].querySelectorAll<HTMLInputElement>('input');
+    if (inputs[0]?.type === 'checkbox') return true;
+    return Array.from(inputs).some((i) => i.checked);
+  }
+
+  function resultText(): string {
+    const age = (form?.querySelector<HTMLInputElement>('input[name="age"]:checked')?.value) ?? '1';
+    const wear = form?.querySelector<HTMLInputElement>('input[name="wear"]:checked')?.value;
+    const active = form?.querySelector<HTMLInputElement>('input[name="activities"][value="1"]:checked');
+    const outdoors = form?.querySelector<HTMLInputElement>('input[name="activities"][value="0"]:checked');
+
+    const parts: string[] = [];
+    if (age === '0') {
+      parts.push('Vision often continues to change into the early twenties, so timing is part of the conversation for younger adults.');
+    } else if (age === '3' || wear === '3') {
+      parts.push('For adults whose reading vision has started to change, lens-based options are often part of the discussion alongside laser procedures.');
+    } else {
+      parts.push('People in your stage of life explore the full range of options, from LASIK to implantable lenses.');
+    }
+    if (active || outdoors) {
+      parts.push('An active, outdoor lifestyle is one of the most common reasons patients look into reducing their dependence on glasses and contacts.');
+    }
+    return parts.join(' ');
+  }
+
+  next?.addEventListener('click', () => {
+    if (!stepAnswered()) {
+      error?.classList.remove('hidden');
+      return;
+    }
+    if (current < steps.length - 1) {
+      current += 1;
+      render();
+    } else {
+      form?.classList.add('hidden');
+      if (resultBody) resultBody.textContent = resultText();
+      result?.classList.remove('hidden');
+      result?.focus();
+    }
+  });
+
+  back?.addEventListener('click', () => {
+    if (current > 0) {
+      current -= 1;
+      render();
+    }
+  });
+
+  // Front-end-only callback confirmation. Deliberately no storage, no request.
+  document.getElementById('cb-submit')?.addEventListener('click', () => {
+    document.getElementById('cb-confirm')?.classList.remove('hidden');
+  });
+
+  render();
+</script>

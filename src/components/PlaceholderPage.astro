@@ -1,0 +1,45 @@
+---
+import { Icon } from 'astro-icon/components';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { practice } from '../data/practice';
+
+/**
+ * Demo stand-in for secure external systems (scheduling, portal, billing,
+ * referrals). Explains honestly that production connects to an approved
+ * secure platform. Collects nothing.
+ */
+interface Props {
+  title: string;
+  description: string;
+  heading: string;
+  body: string;
+  icon: string;
+}
+const { title, description, heading, body, icon } = Astro.props;
+---
+
+<BaseLayout title={title} description={description}>
+  <section class="mx-auto max-w-2xl px-4 py-20 text-center sm:px-6">
+    <span class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-navy-50 text-navy-700" aria-hidden="true">
+      <Icon name={icon} class="h-8 w-8" />
+    </span>
+    <h1 class="mt-6 font-serif text-3xl font-semibold text-navy-900 sm:text-4xl">{heading}</h1>
+    <p class="mt-4 text-lg text-ink-soft">{body}</p>
+    <div class="mt-8 rounded-lg border border-sand-200 bg-white p-6 text-left">
+      <p class="font-semibold text-navy-900">For assistance now, please call the office.</p>
+      <a
+        href={practice.phone.href}
+        class="mt-4 inline-flex items-center gap-2 rounded-md bg-navy-800 px-6 py-3.5 text-lg font-semibold text-white hover:bg-navy-700"
+      >
+        <Icon name="ph:phone" class="h-5 w-5" aria-hidden="true" />
+        Call {practice.phone.display}
+      </a>
+      <p class="mt-4 text-sm text-ink-soft">
+        Office hours: Monday to Friday, 8:00 am to 5:00 pm. Hours pending confirmation.
+      </p>
+    </div>
+    <p class="mt-6 text-sm text-ink-soft">
+      This demonstration page collects no personal or medical information.
+    </p>
+  </section>
+</BaseLayout>

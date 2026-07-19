@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { serviceGroups } from '../data/services';
+---
+
+<BaseLayout
+  title="Eye Care Services in Abilene, TX | Abilene Eye Institute"
+  description="Cataract and lens care, LASIK and vision correction, medical eye conditions, and comprehensive eye exams in Abilene, Texas."
+>
+  <section class="bg-white">
+    <div class="mx-auto max-w-4xl px-4 pb-12 pt-12 sm:px-6 lg:pt-16">
+      <h1 class="font-serif text-4xl font-semibold leading-tight text-navy-900 sm:text-5xl">
+        Our services
+      </h1>
+      <p class="mt-5 max-w-2xl text-lg text-ink-soft">
+        Organized around what you need, not medical jargon. Every path starts the same way: an
+        evaluation with a doctor who takes time to explain what they find.
+      </p>
+    </div>
+  </section>
+
+  {
+    serviceGroups.map((group, gi) => (
+      <section
+        class:list={['py-14', gi % 2 === 1 ? 'bg-white' : '']}
+        id={group.title === 'Comprehensive Eye Care' ? 'comprehensive' : undefined}
+      >
+        <div class="mx-auto max-w-7xl px-4 sm:px-6">
+          <h2 class="font-serif text-3xl font-semibold text-navy-900">{group.title}</h2>
+          <p class="mt-3 max-w-3xl text-lg text-ink-soft">{group.intro}</p>
+          <div class="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {group.services.map((s) => (
+              <ServiceCard service={s} />
+            ))}
+          </div>
+        </div>
+      </section>
+    ))
+  }
+
+  <section class="mx-auto max-w-4xl px-4 pb-14 sm:px-6">
+    <p class="rounded-md bg-sand-100 p-5 text-ink-soft">
+      This overview is educational and does not replace an examination. If you are unsure which
+      service fits your situation, call the office and describe what you are noticing; our team will
+      point you to the right visit.
+    </p>
+  </section>
+
+  <CtaBand />
+</BaseLayout>

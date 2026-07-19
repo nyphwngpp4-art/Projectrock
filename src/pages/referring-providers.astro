@@ -1,0 +1,106 @@
+---
+import { Icon } from 'astro-icon/components';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import { practice } from '../data/practice';
+import { doctors } from '../data/doctors';
+
+const surgeons = doctors.filter((d) => d.degree === 'MD');
+---
+
+<BaseLayout
+  title="Referring Providers | Abilene Eye Institute"
+  description="Referral information for optometrists and physicians: surgical services, referral contacts, urgent referral guidance, and co-management at Abilene Eye Institute."
+>
+  <section class="bg-white">
+    <div class="mx-auto max-w-4xl px-4 pb-12 pt-12 sm:px-6 lg:pt-16">
+      <h1 class="font-serif text-4xl font-semibold leading-tight text-navy-900 sm:text-5xl">
+        For referring providers
+      </h1>
+      <p class="mt-5 max-w-2xl text-lg text-ink-soft">
+        Thank you for trusting us with your patients. We report back promptly after every visit and
+        return patients to your care for ongoing management.
+      </p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-4 py-14 sm:px-6">
+    <SectionHeading title="Why practices refer here" />
+    <ul class="mt-6 space-y-4">
+      {
+        [
+          'Medical and surgical ophthalmology in Abilene, sparing patients metro-area travel.',
+          'Clear post-visit reports and co-management that respects your patient relationship.',
+          'Direct access to our physicians for urgent questions about a referred patient.',
+        ].map((item) => (
+          <li class="flex items-start gap-3 text-lg">
+            <Icon name="ph:check-circle" class="mt-1 h-6 w-6 shrink-0 text-sage-700" aria-hidden="true" />
+            {item}
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="bg-white">
+    <div class="mx-auto max-w-7xl px-4 py-14 sm:px-6">
+      <SectionHeading title="Surgical physicians" />
+      <div class="mt-8 grid gap-6 md:grid-cols-2">
+        {
+          surgeons.map((d) => (
+            <div class="rounded-lg border border-sand-200 p-6">
+              <h3 class="font-serif text-xl font-semibold text-navy-900">{d.name}, {d.degree}</h3>
+              <p class="mt-1 text-sm font-medium text-sage-700">{d.role}</p>
+              <ul class="mt-3 flex flex-wrap gap-2">
+                {d.focus.map((f) => (
+                  <li class="rounded-full bg-sand-100 px-3 py-1 text-sm font-medium text-navy-800">{f}</li>
+                ))}
+              </ul>
+              <a href={`/doctors/${d.slug}/`} class="mt-4 inline-block font-semibold text-navy-700 hover:underline">
+                Full profile
+              </a>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-4 py-14 sm:px-6">
+    <SectionHeading title="How to refer" />
+    <div class="mt-8 grid gap-6 md:grid-cols-2">
+      <div class="rounded-lg border border-sand-200 bg-white p-6">
+        <h3 class="flex items-center gap-2 text-lg font-semibold text-navy-900">
+          <Icon name="ph:phone" class="h-5 w-5 text-sage-700" aria-hidden="true" />
+          By phone
+        </h3>
+        <p class="mt-2 text-ink-soft">
+          Call <a href={practice.phone.href} class="font-semibold text-navy-700 underline">{practice.phone.display}</a>
+          and ask for the referral coordinator. Fax number pending confirmation with the practice.
+        </p>
+      </div>
+      <div class="rounded-lg border border-sand-200 bg-white p-6">
+        <h3 class="flex items-center gap-2 text-lg font-semibold text-navy-900">
+          <Icon name="ph:lock-simple" class="h-5 w-5 text-sage-700" aria-hidden="true" />
+          Secure referral
+        </h3>
+        <p class="mt-2 text-ink-soft">
+          In production this connects to the practice's approved secure referral workflow.
+          <a href={practice.links.providerReferral} class="font-semibold text-navy-700 underline">See the placeholder</a>.
+          Please do not send patient information through this demonstration site.
+        </p>
+      </div>
+    </div>
+
+    <div class="mt-8 rounded-lg border-2 border-navy-800 bg-navy-50 p-6">
+      <h3 class="font-serif text-xl font-semibold text-navy-900">Urgent referrals</h3>
+      <p class="mt-2 text-lg">
+        For same-day concerns such as sudden vision loss, suspected retinal detachment, or acute
+        pressure spikes, call
+        <a href={practice.phone.href} class="font-semibold underline">{practice.phone.display}</a>
+        and identify the call as an urgent provider referral so we can move your patient to the
+        front of the schedule.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

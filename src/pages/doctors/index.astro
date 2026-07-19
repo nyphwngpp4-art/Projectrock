@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import DoctorCard from '../../components/DoctorCard.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { doctors } from '../../data/doctors';
+
+const surgeons = doctors.filter((d) => d.degree === 'MD');
+const optometrists = doctors.filter((d) => d.degree === 'OD');
+---
+
+<BaseLayout
+  title="Meet Our Doctors | Abilene Eye Institute, Abilene, TX"
+  description="The ophthalmologists and optometrists of Abilene Eye Institute: cataract and refractive surgeons and optometric physicians serving Abilene and the Big Country."
+>
+  <section class="bg-white">
+    <div class="mx-auto max-w-4xl px-4 pb-12 pt-12 sm:px-6 lg:pt-16">
+      <h1 class="font-serif text-4xl font-semibold leading-tight text-navy-900 sm:text-5xl">
+        Meet our doctors
+      </h1>
+      <p class="mt-5 max-w-2xl text-lg text-ink-soft">
+        Surgeons and optometrists in one practice, which means your exams, surgery, and follow-up
+        care stay coordinated under one roof.
+      </p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-7xl px-4 py-14 sm:px-6">
+    <h2 class="font-serif text-3xl font-semibold text-navy-900">Ophthalmologists & Surgeons</h2>
+    <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:max-w-3xl">
+      {surgeons.map((d) => <DoctorCard doctor={d} />)}
+    </div>
+
+    <h2 class="mt-14 font-serif text-3xl font-semibold text-navy-900">Optometrists</h2>
+    <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {optometrists.map((d) => <DoctorCard doctor={d} />)}
+    </div>
+  </section>
+
+  <CtaBand />
+</BaseLayout>
