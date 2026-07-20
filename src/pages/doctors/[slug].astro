@@ -10,12 +10,6 @@ export function getStaticPaths() {
 }
 
 const { doctor } = Astro.props;
-const initials = doctor.name
-  .split(' ')
-  .filter((w) => w.length > 1)
-  .map((w) => w[0])
-  .join('');
-
 const physicianSchema = {
   '@context': 'https://schema.org',
   '@type': 'Physician',
@@ -32,19 +26,7 @@ const physicianSchema = {
 >
   <section class="bg-white">
     <div class="mx-auto grid max-w-5xl gap-10 px-4 pb-14 pt-12 sm:px-6 md:grid-cols-[240px_1fr] lg:pt-16">
-      <!-- Portrait placeholder: swap for a real headshot; see ASSET-INVENTORY.md -->
-      <div
-        class="relative mx-auto flex h-56 w-56 items-center justify-center overflow-hidden rounded-lg font-serif text-6xl text-sand-100 md:mx-0"
-        style="background: radial-gradient(120% 120% at 30% 18%, #2d557d 0%, #1b3350 55%, #14263c 100%);"
-        role="img"
-        aria-label={`Portrait placeholder for ${doctor.name}, ${doctor.degree}`}
-      >
-        <span class="absolute inset-2 rounded-md border border-white/15" aria-hidden="true"></span>
-        {initials}
-        <span class="absolute bottom-3 left-0 right-0 text-center text-[0.65rem] uppercase tracking-[0.2em] text-white/60">
-          Portrait to come
-        </span>
-      </div>
+      <img src={doctor.image} alt={`${doctor.name}, ${doctor.degree}`} class="mx-auto h-72 w-56 rounded-xl object-cover object-top shadow-lg md:mx-0" />
       <div>
         <h1 class="font-serif text-4xl font-semibold text-navy-900">
           {doctor.name}, {doctor.degree}

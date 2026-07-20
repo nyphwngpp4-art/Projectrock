@@ -2,7 +2,6 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import CtaBand from '../components/CtaBand.astro';
-import ImagePlaceholder from '../components/ImagePlaceholder.astro';
 import { practice } from '../data/practice';
 ---
 
@@ -21,14 +20,8 @@ import { practice } from '../data/practice';
           and surgical eye care so that patients across the region do not have to travel far from
           home for it.
         </p>
-        <p class="mt-3 text-sm text-ink-soft">Founding year pending final confirmation with the practice.</p>
       </div>
-      <ImagePlaceholder
-        label="Building photography to be added"
-        mark="2120 Antilley Rd"
-        markSub="Abilene, Texas"
-        class="aspect-[4/3] w-full"
-      />
+      <img src={practice.assets.building} alt="Abilene Eye Institute building" class="aspect-[4/3] w-full rounded-xl object-cover shadow-xl" />
     </div>
   </section>
 
@@ -46,8 +39,8 @@ import { practice } from '../data/practice';
         the decisions; our job is to make those decisions clear.
       </p>
       <p>
-        Surgical procedures are performed in coordination with our surgery center relationship.
-        Details of the surgical facility will be described here once confirmed with the practice.
+        The clinic and ambulatory surgical center are located in the same building, helping patients
+        keep evaluations, procedures, and follow-up care connected close to home.
       </p>
     </div>
   </section>

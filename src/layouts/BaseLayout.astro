@@ -11,9 +11,10 @@ interface Props {
   description: string;
   /** Extra JSON-LD blocks beyond the base MedicalClinic schema. */
   schema?: object[];
+  noindex?: boolean;
 }
 
-const { title, description, schema = [] } = Astro.props;
+const { title, description, schema = [], noindex = false } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 
 const baseSchema = {
@@ -41,6 +42,7 @@ const baseSchema = {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="sitemap" href="/sitemap-index.xml" />
@@ -49,6 +51,7 @@ const baseSchema = {
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:site_name" content={practice.name} />
+    <meta property="og:image" content={practice.assets.team} />
     <script
       is:inline
       type="application/ld+json"
