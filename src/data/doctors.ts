@@ -1,107 +1,12 @@
-/**
- * Physician and optometrist roster.
- * Roster and focus areas come from the live site and public directories.
- * Anything not confirmed directly with the practice is marked unverified
- * and rendered with a "pending confirmation" note on profile pages.
- * No credentials, memberships, or biography details are invented.
- */
-
 export interface Doctor {
-  slug: string;
-  name: string;
-  degree: string;
-  role: string;
-  focus: string[];
-  /** Short plain-language descriptor for cards. */
-  cardLine: string;
-  /** Verified biography facts only. Empty entries render a placeholder. */
-  bio: string[];
-  education: string[];
-  credentials: string[];
-  languages?: string[];
-  verified: boolean;
+  slug: string; name: string; degree: string; role: string; focus: string[];
+  cardLine: string; bio: string[]; education: string[]; credentials: string[]; image: string; languages?: string[];
 }
-
 export const doctors: Doctor[] = [
-  {
-    slug: 'mark-j-phelan-md',
-    name: 'Mark J. Phelan',
-    degree: 'MD',
-    role: 'Ophthalmologist, Cataract and Refractive Surgeon',
-    focus: ['Cataract surgery', 'LASIK and refractive surgery', 'Comprehensive ophthalmology'],
-    cardLine: 'Cataract and refractive surgeon with decades of service to the Big Country.',
-    bio: [
-      'Dr. Phelan is a board-certified ophthalmologist and the senior surgeon at Abilene Eye Institute, where he has cared for patients from Abilene and the surrounding communities for decades.',
-    ],
-    education: ['Medical degree, University of Michigan'],
-    credentials: [
-      'Certified, American Board of Eye Surgeons',
-      'Fellow, American Board of Ophthalmology',
-      'Fellow, American College of Surgeons',
-      'Member, American Academy of Ophthalmology',
-      'Member, American Society of Cataract and Refractive Surgery',
-      'Member, International Society of Refractive Surgery',
-    ],
-    verified: true,
-  },
-  {
-    slug: 'rocky-mcadams-md',
-    name: 'Rocky McAdams',
-    degree: 'MD',
-    role: 'Ophthalmologist, Cataract and Refractive Surgeon',
-    focus: [
-      'Cataract surgery',
-      'Refractive surgery',
-      'Surgical treatment of glaucoma',
-      'Diabetic eye care and macular degeneration',
-    ],
-    cardLine: 'Cataract, refractive, and glaucoma surgeon caring for patients across the region.',
-    bio: [
-      'Dr. McAdams is a board-certified ophthalmologist practicing comprehensive medical and surgical eye care, with particular focus on cataract surgery, refractive procedures, and the surgical treatment of glaucoma.',
-      'He sees patients in Abilene and in outreach communities across the region, and welcomes Spanish-speaking patients.',
-    ],
-    education: [
-      'Medical degree, University of Texas Southwestern Medical School',
-      'Ophthalmology residency, University of Texas Southwestern Medical Center',
-    ],
-    credentials: ['Board certified, American Board of Ophthalmology'],
-    languages: ['English', 'Spanish'],
-    verified: true,
-  },
-  {
-    slug: 'jessica-sumrall-od',
-    name: 'Jessica Sumrall',
-    degree: 'OD',
-    role: 'Optometrist',
-    focus: ['Comprehensive eye exams', 'Pre- and post-operative care', 'Medical optometry'],
-    cardLine: 'Optometrist providing comprehensive exams and surgical co-management.',
-    bio: [],
-    education: [],
-    credentials: [],
-    verified: false,
-  },
-  {
-    slug: 'jeannie-clark-od',
-    name: 'Jeannie Clark',
-    degree: 'OD',
-    role: 'Optometrist',
-    focus: ['Comprehensive eye exams', 'Contact lens care', 'Medical optometry'],
-    cardLine: 'Optometrist providing comprehensive exams and ongoing vision care.',
-    bio: [],
-    education: [],
-    credentials: [],
-    verified: false,
-  },
-  {
-    slug: 'logan-skrobarcek-od',
-    name: 'Logan Skrobarcek',
-    degree: 'OD',
-    role: 'Optometrist',
-    focus: ['Comprehensive eye exams', 'Pre- and post-operative care', 'Medical optometry'],
-    cardLine: 'Optometrist providing comprehensive exams and surgical co-management.',
-    bio: [],
-    education: [],
-    credentials: [],
-    verified: false,
-  },
+  { slug:'mark-j-phelan-md', name:'Mark J. Phelan', degree:'MD', role:'Ophthalmologist, Cataract and Refractive Surgeon', focus:['Cataract surgery','LASIK and refractive surgery','Comprehensive ophthalmology'], cardLine:'Cataract and refractive surgeon serving the Big Country for more than two decades.', bio:['Dr. Phelan provides refractive and cataract surgery and has practiced in Texas since 1994. His approach centers on meeting patients personally, explaining options clearly, and following their recovery.'], education:['BS and medical degree, University of Michigan','Residency, University of Michigan Kellogg Eye Center'], credentials:['Certified, American Board of Eye Surgeons','Fellow, American Board of Ophthalmology','Fellow, American College of Surgeons'], image:'https://lirp.cdn-website.com/b1397486/dms3rep/multi/opt/dr_phelan-1920w.jpg' },
+  { slug:'rocky-mcadams-md', name:'Rocky McAdams', degree:'MD', role:'Ophthalmologist, Cataract and Refractive Surgeon', focus:['Cataract surgery','Refractive surgery','Glaucoma surgery','Diabetic and macular eye care'], cardLine:'Comprehensive medical and surgical eye care with a focus on cataract and glaucoma.', bio:['A West Texas native, Dr. McAdams practices comprehensive medical and surgical ophthalmology, including cataract, refractive, glaucoma, diabetic, and macular eye care.'], education:['Medical degree, UT Southwestern Medical School','Ophthalmology residency, UT Southwestern Medical Center'], credentials:['Board certified, American Board of Ophthalmology'], image:'https://lirp.cdn-website.com/b1397486/dms3rep/multi/opt/dr_mcadams-1920w.jpg' },
+  { slug:'jessica-sumrall-od', name:'Jessica Sumrall', degree:'OD', role:'Optometrist', focus:['Comprehensive eye exams','Medical optometry','Pre- and post-operative care'], cardLine:'Comprehensive eye care for patients of all ages.', bio:['Dr. Sumrall provides comprehensive optometric care for patients of all ages and has served West Texas since 2017.'], education:['OD, Southern College of Optometry','Biological sciences, Mississippi State University'], credentials:[], image:'https://lirp.cdn-website.com/b1397486/dms3rep/multi/opt/Pic_Sumrall+%281%29-1920w.jpg' },
+  { slug:'jeannie-clark-od', name:'Jeannie Clark', degree:'OD', role:'Optometrist', focus:['Comprehensive eye exams','Ocular disease','Low-vision care'], cardLine:'Comprehensive optometry informed by ocular-disease and low-vision training.', bio:['Dr. Clark joined the Abilene community in 2017. Her training includes an ocular disease and low-vision residency at the Lake City VA Medical Center.'], education:['OD, Southern College of Optometry','Residency, Lake City VA Medical Center'], credentials:[], image:'https://lirp.cdn-website.com/b1397486/dms3rep/multi/opt/dr_clark-1920w.jpg' },
+  { slug:'logan-skrobarcek-od', name:'Logan Skrobarcek', degree:'OD', role:'Optometrist', focus:['Ocular disease','Surgical co-management','Retinal, corneal and neurological eye conditions'], cardLine:'Medical optometry and coordinated care before and after surgery.', bio:['Dr. Skrobarcek focuses on ocular disease and surgical co-management, with experience evaluating retinal, corneal, and neurological eye conditions.'], education:['OD, Rosenberg School of Optometry','Biology, Texas A&M University'], credentials:[], image:'https://lirp.cdn-website.com/b1397486/dms3rep/multi/opt/1000023230-1920w.jpg' },
+  { slug:'kerry-preston-od', name:'Kerry C. Preston', degree:'OD', role:'Optometrist', focus:['Primary eye care','Glaucoma','Urgent eye conditions','Surgical co-management'], cardLine:'Primary and urgent eye care, glaucoma management, and surgical co-management.', bio:['A former chief of optometric services at Dyess Air Force Base, Dr. Preston has cared for Abilene-area patients for more than 25 years.'], education:['OD, Indiana University School of Optometry','Chemistry, Southern Illinois University'], credentials:[], image:'https://lirp.cdn-website.com/b1397486/dms3rep/multi/opt/dr_preston-1920w.jpg' },
 ];
