@@ -1,55 +1,97 @@
 ---
 /**
- * Stand-in for practice photography, styled as a composed brand panel:
- * a layered lens/iris motif in the practice palette with a gallery-style
- * placard noting the future photograph. Tracked in ASSET-INVENTORY.md and
- * swapped for real photography one component at a time.
+ * Practice-photography slot.
+ *
+ * Two modes, one component:
+ *  - Placard mode (default): a composed brand panel standing in for a
+ *    photograph the practice will supply. A layered lens/iris motif in the
+ *    practice palette with a gallery-style placard noting the future photo.
+ *  - Image mode: pass `image` and the slot renders a real <img> with a
+ *    descriptive alt, explicit width/height (to prevent layout shift), and
+ *    lazy loading by default. The homepage hero passes `eager` so its image
+ *    loads with high priority. A small placard notes the imagery is
+ *    temporary.
+ *
+ * Every image placed here is an AI-generated temporary asset tracked in
+ * ASSET-INVENTORY.md and swapped for real practice photography one slot at a
+ * time. When no `image` is given the component behaves exactly as before.
  */
 interface Props {
   label: string;
   class?: string;
-  /** Large display line inside the panel, e.g. "Est. 1987". */
+  /** Large display line inside the placard panel, e.g. "Est. 1987". */
   mark?: string;
   /** Small line under the mark. */
   markSub?: string;
+  /** Path under /public, e.g. "/images/home-hero.jpg". Switches to image mode. */
+  image?: string;
+  /** Descriptive alt text. Required whenever `image` is set. */
+  alt?: string;
+  /** Intrinsic pixel dimensions, used to reserve space and stop layout shift. */
+  width?: number;
+  height?: number;
+  /** Homepage hero only: load eagerly with high fetch priority. */
+  eager?: boolean;
 }
-const { label, class: className = '', mark = 'Est. 1987', markSub = 'Abilene, Texas' } = Astro.props;
+const {
+  label,
+  class: className = '',
+  mark = 'Est. 1987',
+  markSub = 'Abilene, Texas',
+  image,
+  alt = '',
+  width = 1200,
+  height = 900,
+  eager = false,
+} = Astro.props;
 ---
 
-<figure class:list={['group relative overflow-hidden rounded-lg bg-navy-900', className]}>
-  <!-- Layered lens motif: concentric light falloff in the brand palette -->
-  <div class="absolute inset-0" aria-hidden="true">
-    <div
-      class="absolute inset-0"
-      style="background:
-        radial-gradient(120% 90% at 78% 18%, rgba(63,122,114,0.35) 0%, rgba(63,122,114,0) 55%),
-        radial-gradient(95% 95% at 22% 88%, rgba(45,85,125,0.55) 0%, rgba(45,85,125,0) 60%),
-        linear-gradient(160deg, #1b3350 0%, #14263c 70%);"
-    >
-    </div>
-    <div
-      class="absolute -right-[18%] -top-[28%] aspect-square w-[75%] rounded-full border border-white/10"
-    >
-    </div>
-    <div
-      class="absolute -right-[10%] -top-[18%] aspect-square w-[55%] rounded-full border border-white/15"
-    >
-    </div>
-    <div
-      class="absolute -right-[2%] -top-[8%] aspect-square w-[35%] rounded-full border border-sage-100/25"
-    >
-    </div>
-  </div>
+{
+  image ? (
+    <figure class:list={['group relative overflow-hidden rounded-lg bg-navy-900', className]}>
+      <img
+        src={image}
+        alt={alt}
+        width={width}
+        height={height}
+        loading={eager ? 'eager' : 'lazy'}
+        fetchpriority={eager ? 'high' : 'auto'}
+        decoding="async"
+        class="h-full w-full object-cover"
+      />
+      <figcaption
+        class="absolute bottom-3 left-3 w-fit rounded-sm bg-navy-900/55 px-3 py-1.5 text-xs uppercase tracking-[0.14em] text-white/85 backdrop-blur-sm"
+      >
+        Temporary imagery, practice photography to follow.
+      </figcaption>
+    </figure>
+  ) : (
+    <figure class:list={['group relative overflow-hidden rounded-lg bg-navy-900', className]}>
+      {/* Layered lens motif: concentric light falloff in the brand palette */}
+      <div class="absolute inset-0" aria-hidden="true">
+        <div
+          class="absolute inset-0"
+          style="background:
+            radial-gradient(120% 90% at 78% 18%, rgba(63,122,114,0.35) 0%, rgba(63,122,114,0) 55%),
+            radial-gradient(95% 95% at 22% 88%, rgba(45,85,125,0.55) 0%, rgba(45,85,125,0) 60%),
+            linear-gradient(160deg, #1b3350 0%, #14263c 70%);"
+        />
+        <div class="absolute -right-[18%] -top-[28%] aspect-square w-[75%] rounded-full border border-white/10" />
+        <div class="absolute -right-[10%] -top-[18%] aspect-square w-[55%] rounded-full border border-white/15" />
+        <div class="absolute -right-[2%] -top-[8%] aspect-square w-[35%] rounded-full border border-sage-100/25" />
+      </div>
 
-  <div class="relative flex h-full min-h-full flex-col justify-between p-7 sm:p-8">
-    <div class="text-navy-100">
-      <p class="font-serif text-3xl text-white sm:text-4xl">{mark}</p>
-      <p class="mt-1 text-sm uppercase tracking-[0.18em] text-navy-100/80">{markSub}</p>
-    </div>
-    <figcaption
-      class="mt-10 w-fit rounded-sm bg-white/10 px-3 py-1.5 text-xs uppercase tracking-[0.14em] text-white/75 backdrop-blur-sm"
-    >
-      {label}
-    </figcaption>
-  </div>
-</figure>
+      <div class="relative flex h-full min-h-full flex-col justify-between p-7 sm:p-8">
+        <div class="text-navy-100">
+          <p class="font-serif text-3xl text-white sm:text-4xl">{mark}</p>
+          <p class="mt-1 text-sm uppercase tracking-[0.18em] text-navy-100/80">{markSub}</p>
+        </div>
+        <figcaption
+          class="mt-10 w-fit rounded-sm bg-white/10 px-3 py-1.5 text-xs uppercase tracking-[0.14em] text-white/75 backdrop-blur-sm"
+        >
+          {label}
+        </figcaption>
+      </div>
+    </figure>
+  )
+}
