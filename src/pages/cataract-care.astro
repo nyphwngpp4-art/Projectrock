@@ -4,6 +4,7 @@ import SectionHeading from '../components/SectionHeading.astro';
 import CtaBand from '../components/CtaBand.astro';
 import DoctorCard from '../components/DoctorCard.astro';
 import Faq from '../components/Faq.astro';
+import ImagePlaceholder from '../components/ImagePlaceholder.astro';
 import { doctors } from '../data/doctors';
 
 const surgeons = doctors.filter((d) => d.degree === 'MD');
@@ -84,6 +85,19 @@ const symptoms = [
       going on, and noticing them does not mean you need surgery today. Many patients monitor a
       cataract for years before it interferes with daily life.
     </p>
+  </section>
+
+  <section class="bg-white">
+    <div class="mx-auto max-w-6xl px-4 py-4 sm:px-6">
+      <ImagePlaceholder
+        image="/images/cataract-lifestyle.jpg"
+        alt="A couple in their seventies walking together outdoors in soft evening light, small-town Texas setting."
+        width={1200}
+        height={800}
+        label="Lifestyle photography to be added"
+        class="aspect-[3/2] w-full"
+      />
+    </div>
   </section>
 
   <section class="bg-white">

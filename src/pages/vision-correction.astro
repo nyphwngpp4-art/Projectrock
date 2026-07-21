@@ -4,6 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import CtaBand from '../components/CtaBand.astro';
 import Faq from '../components/Faq.astro';
+import ImagePlaceholder from '../components/ImagePlaceholder.astro';
 import { practice } from '../data/practice';
 
 const faqs = [
@@ -57,6 +58,19 @@ const faqSchema = {
         <Icon name="ph:clipboard-text" class="h-5 w-5" aria-hidden="true" />
         Take the Self-Assessment
       </a>
+    </div>
+  </section>
+
+  <section class="bg-white">
+    <div class="mx-auto max-w-6xl px-4 pb-4 sm:px-6">
+      <ImagePlaceholder
+        image="/images/vision-lifestyle.jpg"
+        alt="An active adult outdoors on open West Texas prairie in warm golden-hour light, without glasses."
+        width={1200}
+        height={800}
+        label="Lifestyle photography to be added"
+        class="aspect-[3/2] w-full"
+      />
     </div>
   </section>
 
