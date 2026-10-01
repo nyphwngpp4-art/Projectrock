@@ -1,69 +1,28 @@
-/**
- * Single source of truth for practice facts.
- * Every value carries a verification status; see CONTENT-VERIFICATION.md.
- * Values marked `verified: false` render with a review flag in docs and
- * must be confirmed with the practice before production.
- */
-
 export const practice = {
   name: 'Abilene Eye Institute',
   legalNote: 'Concept demo prepared by Agavi AI LLC. Not the live site of Abilene Eye Institute.',
-
-  // 325-695-2020 appears as the local number across the live site and every
-  // public directory listing; treated as primary. Two other numbers
-  // (855-463-5490, 800-692-2020) appear unlabeled on the live site and are
-  // documented in CONTENT-VERIFICATION.md pending the practice's guidance.
-  phone: {
-    display: '(325) 695-2020',
-    href: 'tel:+13256952020',
-    verified: true,
-  },
-  tollFree: {
-    display: '(800) 692-2020',
-    href: 'tel:+18006922020',
-    verified: false,
-  },
-  fax: {
-    display: 'Fax number to be confirmed',
-    verified: false,
-  },
-
-  address: {
-    street: '2120 Antilley Rd',
-    city: 'Abilene',
-    state: 'TX',
-    zip: '79606',
-    verified: true,
-  },
-
-  // The live site shows both "since 1987" and "over 30 years"; 1987 is used
-  // here pending reconciliation with the practice.
+  phone: { display: '(325) 695-2020', href: 'tel:+13256952020' },
+  fax: { display: '(325) 695-2326', href: 'tel:+13256952326' },
+  address: { street: '2120 Antilley Rd', city: 'Abilene', state: 'TX', zip: '79606' },
   foundingYear: 1987,
-  foundingVerified: false,
-
   hours: [
-    { days: 'Monday to Thursday', hours: '8:00 am to 5:00 pm' },
-    { days: 'Friday', hours: '8:00 am to 12:00 pm, 1:00 pm to 5:00 pm' },
-    { days: 'Saturday and Sunday', hours: 'Closed' },
+    { days: 'Monday–Thursday', hours: '8:00 am–5:00 pm' },
+    { days: 'Friday', hours: '8:00 am–1:00 pm; 1:30–5:00 pm' },
+    { days: 'Saturday–Sunday', hours: 'Closed' },
   ],
-  hoursVerified: false,
-
-  serviceArea: [
-    'Abilene',
-    'Comanche',
-    'Sweetwater',
-    'Colorado City',
-    'Eastland',
-    'Breckenridge',
-  ],
-  serviceAreaVerified: true,
-
-  // Secure external systems. Production URLs must come from the practice;
-  // the demo routes to explanatory placeholder pages instead.
+  serviceArea: ['Abilene', 'Comanche', 'Sweetwater', 'Colorado City', 'Eastland', 'Breckenridge'],
   links: {
-    requestAppointment: '/request-appointment/',
-    patientPortal: '/patient-portal/',
-    payBill: '/pay-bill/',
+    requestAppointment: 'tel:+13256952020',
+    patientPortal: '/patient-resources/',
+    patientForms: 'https://www.abileneeyeinstitute.com/patient-forms',
+    payBill: 'https://quickclick.com/r/go7aab3j3qarekw1gvk2mit7c3lw1o',
+    financing: 'https://www.abileneeyeinstitute.com/financing',
     providerReferral: '/provider-referral/',
+    reviews: 'https://www.abileneeyeinstitute.com/reviews',
+  },
+  assets: {
+    logo: 'https://lirp.cdn-website.com/b1397486/dms3rep/multi/opt/new-logo-1920w.png',
+    building: 'https://lirp.cdn-website.com/b1397486/dms3rep/multi/opt/building-570w.jpg',
+    team: 'https://lirp.cdn-website.com/b1397486/dms3rep/multi/opt/image001-1920w.png',
   },
 } as const;

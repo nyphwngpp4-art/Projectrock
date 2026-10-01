@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const gaps=[
+ ['Navigation','Current site includes unrelated “Hair Services” and “Spa Services” remnants.','Focused patient pathways and ophthalmology-only navigation.'],
+ ['Trust','Sample/template content and inconsistent calls to action weaken confidence.','Real physicians, facility imagery, sourced testimonials, and verified practice facts.'],
+ ['Scheduling','Multiple phone numbers and broken or unclear action paths compete.','One primary local number and a clear call-first Stage 1 flow.'],
+ ['Patient utility','Important forms, payments, and financing are buried.','A single patient hub with direct, labeled destinations.'],
+ ['Service discovery','Procedures are listed, but patients must already know terminology.','Start with symptoms and goals, then connect people to the right service.'],
+ ['Compliance','General marketing components risk collecting sensitive information.','No PHI collection, pixels, chatbot, or unapproved form in Stage 1.'],
+];
+---
+<BaseLayout title="Owner Review | Abilene Eye Institute Demo" description="Private comparison and launch discussion for the Abilene Eye Institute website concept." noindex>
+  <section class="bg-navy-900 text-white"><div class="mx-auto max-w-6xl px-4 py-16 sm:px-6"><p class="text-sm font-semibold uppercase tracking-[0.18em] text-sage-100">Private owner review · not indexed</p><h1 class="mt-4 font-serif text-5xl font-semibold">What this demo changes—and why</h1><p class="mt-5 max-w-3xl text-lg text-navy-100">A patient-first digital front door that preserves the practice’s real strengths while removing template residue, confusion, and compliance risk.</p></div></section>
+  <section class="mx-auto max-w-6xl px-4 py-16 sm:px-6"><div class="overflow-x-auto rounded-xl border border-sand-200 bg-white"><table class="w-full min-w-[760px] text-left"><thead class="bg-navy-50 text-navy-900"><tr><th class="p-5">Area</th><th class="p-5">Current website</th><th class="p-5">Enhanced demo</th></tr></thead><tbody>{gaps.map(g=><tr class="border-t border-sand-200 align-top"><th class="p-5 text-navy-900">{g[0]}</th><td class="p-5 text-ink-soft">{g[1]}</td><td class="p-5 text-ink-soft">{g[2]}</td></tr>)}</tbody></table></div>
+    <div class="mt-12 grid gap-6 md:grid-cols-2"><div class="rounded-xl bg-sage-50 p-7"><h2 class="font-serif text-2xl font-semibold text-navy-900">Stage 1 boundary</h2><p class="mt-3 text-ink-soft">Public information, phone calls, and links to existing approved external systems only. No patient intake, clinical details, advertising pixels, or chatbot.</p></div><div class="rounded-xl bg-sand-100 p-7"><h2 class="font-serif text-2xl font-semibold text-navy-900">Before production</h2><p class="mt-3 text-ink-soft">Confirm the active provider roster, primary phone, hours, legal notices, review permissions, surgical-center wording, and rights to original photo files. Replace temporary current-site image URLs with approved optimized assets.</p></div></div>
+  </section>
+</BaseLayout>

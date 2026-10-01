@@ -1,143 +1,40 @@
 ---
 import { Icon } from 'astro-icon/components';
 import { practice } from '../data/practice';
-
-const nav = [
-  { label: 'Services', href: '/services/' },
-  { label: 'Cataracts', href: '/cataract-care/' },
-  { label: 'Vision Correction', href: '/vision-correction/' },
-  { label: 'Doctors', href: '/doctors/' },
-  { label: 'Resources', href: '/patient-resources/' },
-  { label: 'About', href: '/about/' },
-  { label: 'Contact', href: '/locations/' },
-];
-
-const path = Astro.url.pathname;
-const isActive = (href: string) => path === href || path.startsWith(href + '');
+const nav=[{label:'Services',href:'/services/'},{label:'Cataracts',href:'/cataract-care/'},{label:'Vision Correction',href:'/vision-correction/'},{label:'Doctors',href:'/doctors/'},{label:'Patient Resources',href:'/patient-resources/'},{label:'About',href:'/about/'},{label:'Contact',href:'/locations/'}];
+const path=Astro.url.pathname;
+const isActive=(href:string)=>path===href||path.startsWith(href);
 ---
-
-<!-- Utility bar: one visually primary phone number; secondary numbers are
-     documented in CONTENT-VERIFICATION.md rather than crowding the header. -->
 <div class="bg-navy-900 text-white">
   <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-2 text-sm sm:px-6">
-    <a href={practice.phone.href} class="inline-flex items-center gap-2 font-semibold hover:underline">
-      <Icon name="ph:phone" class="h-4 w-4" aria-hidden="true" />
-      {practice.phone.display}
-    </a>
-    <div class="flex items-center gap-5">
-      <a href={practice.links.patientPortal} class="hidden items-center gap-1.5 hover:underline sm:inline-flex">
-        <Icon name="ph:lock-simple" class="h-4 w-4" aria-hidden="true" />
-        Patient Portal
-      </a>
-      <a href={practice.links.payBill} class="hidden hover:underline sm:inline">Pay Bill</a>
-      <a href="/referring-providers/" class="hover:underline">Referring Providers</a>
+    <span class="hidden sm:inline">Serving Abilene and the Big Country since 1987</span>
+    <div class="ml-auto flex items-center gap-5">
+      <a href={practice.links.patientForms} class="hover:underline">Patient Forms</a>
+      <a href={practice.links.payBill} class="hover:underline">Pay Bill</a>
+      <a href="/referring-providers/" class="hidden hover:underline sm:inline">Referring Providers</a>
     </div>
   </div>
 </div>
-
 <header class="sticky top-0 z-40 border-b border-sand-200 bg-white/95 backdrop-blur">
-  <div class="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:h-[72px]">
-    <a href="/" class="flex items-center gap-2.5" aria-label="Abilene Eye Institute home">
-      <span
-        class="flex h-10 w-10 items-center justify-center rounded-full bg-navy-800 text-white"
-        aria-hidden="true"
-      >
-        <Icon name="ph:eye" class="h-5 w-5" />
-      </span>
-      <span class="leading-tight">
-        <span class="block font-serif text-lg font-semibold text-navy-900">Abilene Eye Institute</span>
-        <span class="block text-xs tracking-wide text-ink-soft">Serving the Big Country</span>
-      </span>
+  <div class="mx-auto flex h-[76px] max-w-7xl items-center justify-between gap-4 px-4 sm:px-6">
+    <a href="/" class="flex items-center" aria-label="Abilene Eye Institute home">
+      <img src={practice.assets.logo} alt="Abilene Eye Institute" class="h-12 w-auto max-w-[210px] object-contain" />
     </a>
-
-    <nav aria-label="Main navigation" class="hidden lg:block">
-      <ul class="flex items-center gap-6">
-        {
-          nav.map((item) => (
-            <li>
-              <a
-                href={item.href}
-                aria-current={isActive(item.href) ? 'page' : undefined}
-                class:list={[
-                  'whitespace-nowrap text-[0.95rem] font-medium text-ink hover:text-navy-700',
-                  isActive(item.href) && 'text-navy-700 underline decoration-2 underline-offset-8',
-                ]}
-              >
-                {item.label}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </nav>
-
+    <nav aria-label="Main navigation" class="hidden lg:block"><ul class="flex items-center gap-5">
+      {nav.map(item=><li><a href={item.href} aria-current={isActive(item.href)?'page':undefined} class:list={['whitespace-nowrap text-sm font-semibold text-ink hover:text-navy-700',isActive(item.href)&&'text-navy-700 underline decoration-2 underline-offset-8']}>{item.label}</a></li>)}
+    </ul></nav>
     <div class="flex items-center gap-3">
-      <a
-        href={practice.phone.href}
-        class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-sage-50 text-sage-700 lg:hidden"
-        aria-label={`Call Abilene Eye Institute at ${practice.phone.display}`}
-      >
-        <Icon name="ph:phone" class="h-5 w-5" aria-hidden="true" />
-      </a>
-      <a
-        href={practice.links.requestAppointment}
-        class="hidden rounded-md bg-navy-800 px-5 py-2.5 text-[0.95rem] font-semibold text-white hover:bg-navy-700 md:inline-block"
-      >
-        Request Appointment
-      </a>
-      <button
-        type="button"
-        id="menu-toggle"
-        class="inline-flex h-11 w-11 items-center justify-center rounded-md border border-sand-300 text-navy-900 lg:hidden"
-        aria-expanded="false"
-        aria-controls="mobile-menu"
-      >
-        <span class="sr-only">Open menu</span>
-        <Icon name="ph:list" class="h-6 w-6" aria-hidden="true" />
-      </button>
+      <a href={practice.phone.href} class="hidden rounded-md bg-navy-800 px-5 py-2.5 text-sm font-semibold text-white hover:bg-navy-700 md:inline-flex"><Icon name="ph:phone" class="mr-2 h-4 w-4" />Call {practice.phone.display}</a>
+      <a href={practice.phone.href} class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-sage-50 text-sage-700 md:hidden" aria-label={`Call ${practice.phone.display}`}><Icon name="ph:phone" class="h-5 w-5" /></a>
+      <button type="button" id="menu-toggle" class="inline-flex h-11 w-11 items-center justify-center rounded-md border border-sand-300 text-navy-900 lg:hidden" aria-expanded="false" aria-controls="mobile-menu"><span class="sr-only">Open menu</span><Icon name="ph:list" class="h-6 w-6" /></button>
     </div>
   </div>
-
-  <nav id="mobile-menu" aria-label="Mobile navigation" class="hidden border-t border-sand-200 bg-white lg:hidden">
-    <ul class="space-y-1 px-4 py-4">
-      {
-        nav.map((item) => (
-          <li>
-            <a
-              href={item.href}
-              aria-current={isActive(item.href) ? 'page' : undefined}
-              class="block rounded-md px-3 py-3 text-lg font-medium text-ink hover:bg-sand-100"
-            >
-              {item.label}
-            </a>
-          </li>
-        ))
-      }
-      <li class="pt-2">
-        <a
-          href={practice.links.requestAppointment}
-          class="block rounded-md bg-navy-800 px-3 py-3 text-center text-lg font-semibold text-white"
-        >
-          Request Appointment
-        </a>
-      </li>
-      <li class="flex justify-center gap-6 pt-3 text-base">
-        <a href={practice.links.patientPortal} class="text-navy-700 underline">Patient Portal</a>
-        <a href={practice.links.payBill} class="text-navy-700 underline">Pay Bill</a>
-      </li>
-    </ul>
-  </nav>
+  <nav id="mobile-menu" aria-label="Mobile navigation" class="hidden border-t border-sand-200 bg-white lg:hidden"><ul class="space-y-1 px-4 py-4">
+    {nav.map(item=><li><a href={item.href} class="block rounded-md px-3 py-3 text-lg font-medium hover:bg-sand-100">{item.label}</a></li>)}
+    <li class="pt-2"><a href={practice.phone.href} class="block rounded-md bg-navy-800 px-3 py-3 text-center text-lg font-semibold text-white">Call {practice.phone.display}</a></li>
+  </ul></nav>
 </header>
-
 <script>
-  // The only global JS on the site: an accessible mobile menu toggle.
-  const toggle = document.getElementById('menu-toggle');
-  const menu = document.getElementById('mobile-menu');
-  toggle?.addEventListener('click', () => {
-    const open = toggle.getAttribute('aria-expanded') === 'true';
-    toggle.setAttribute('aria-expanded', String(!open));
-    menu?.classList.toggle('hidden', open);
-    const label = toggle.querySelector('.sr-only');
-    if (label) label.textContent = open ? 'Open menu' : 'Close menu';
-  });
+  const toggle=document.getElementById('menu-toggle'); const menu=document.getElementById('mobile-menu');
+  toggle?.addEventListener('click',()=>{const open=toggle.getAttribute('aria-expanded')==='true';toggle.setAttribute('aria-expanded',String(!open));menu?.classList.toggle('hidden',open);});
 </script>

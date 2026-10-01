@@ -1,112 +1,19 @@
 ---
 import { Icon } from 'astro-icon/components';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import SectionHeading from '../components/SectionHeading.astro';
-import CtaBand from '../components/CtaBand.astro';
 import { practice } from '../data/practice';
-
-const secure = [
-  {
-    title: 'Request an Appointment',
-    body: 'Ask for a visit online, or simply call the office.',
-    href: practice.links.requestAppointment,
-    icon: 'ph:calendar-plus',
-  },
-  {
-    title: 'Patient Portal',
-    body: 'Messages, visit summaries, and records through the practice’s secure system.',
-    href: practice.links.patientPortal,
-    icon: 'ph:lock-simple',
-  },
-  {
-    title: 'Pay Your Bill',
-    body: 'Pay securely through the practice’s payment platform.',
-    href: practice.links.payBill,
-    icon: 'ph:credit-card',
-  },
-];
-
-const informational = [
-  {
-    title: 'Patient forms',
-    body: 'New patient paperwork will be linked here once the practice confirms current forms. Where a secure digital option exists, it will be offered alongside any PDF.',
-  },
-  {
-    title: 'Medical record requests',
-    body: 'Records are released through the front office with a signed authorization. Call the office and our team will walk you through the process.',
-  },
-  {
-    title: 'Prescription questions',
-    body: 'For refills of eye drops or other prescriptions, call the office with your pharmacy information, or use the patient portal.',
-  },
-  {
-    title: 'Preparing for surgery',
-    body: 'Your surgical coordinator gives you specific instructions for your procedure: when to arrive, what to bring, and arrangements for a driver. Call any time a detail is unclear.',
-  },
+const resources=[
+ {title:'Call for an appointment',body:'Talk with the office team about scheduling and the right type of visit.',href:practice.phone.href,icon:'ph:phone'},
+ {title:'Patient forms',body:'Open the forms and policies currently published by the practice.',href:practice.links.patientForms,icon:'ph:file-text'},
+ {title:'Pay your bill',body:'Continue to the practice’s third-party payment service.',href:practice.links.payBill,icon:'ph:credit-card'},
+ {title:'Financing options',body:'Review CareCredit and other financing information published by the practice.',href:practice.links.financing,icon:'ph:wallet'},
+ {title:'Directions and hours',body:'Plan your visit to 2120 Antilley Road in Abilene.',href:'/locations/',icon:'ph:map-pin'},
+ {title:'Medical records',body:'Call the office for the current authorization and records-release process.',href:practice.phone.href,icon:'ph:files'},
 ];
 ---
-
-<BaseLayout
-  title="Patient Resources | Abilene Eye Institute"
-  description="Appointments, patient portal, bill pay, forms, medical records, prescriptions, and surgery preparation for patients of Abilene Eye Institute."
->
-  <section class="bg-white">
-    <div class="mx-auto max-w-4xl px-4 pb-12 pt-12 sm:px-6 lg:pt-16">
-      <h1 class="font-serif text-4xl font-semibold leading-tight text-navy-900 sm:text-5xl">
-        Patient resources
-      </h1>
-      <p class="mt-5 max-w-2xl text-lg text-ink-soft">
-        Everything you need between visits, with secure tools clearly separated from ordinary
-        information pages.
-      </p>
-    </div>
+<BaseLayout title="Patient Resources | Abilene Eye Institute" description="Appointments, forms, bill pay, financing, directions, and practical visit information for Abilene Eye Institute patients.">
+  <section class="bg-white"><div class="mx-auto max-w-5xl px-4 py-16 sm:px-6"><p class="text-sm font-semibold uppercase tracking-[0.18em] text-sage-700">Patient hub</p><h1 class="mt-3 font-serif text-5xl font-semibold text-navy-900">The practical things, easy to find</h1><p class="mt-5 max-w-2xl text-lg text-ink-soft">Use the current practice resources below. This demonstration site does not collect patient or medical information.</p></div></section>
+  <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6"><div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">{resources.map(r=><a href={r.href} class="rounded-xl border border-sand-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:border-sage-600 hover:shadow-lg"><Icon name={r.icon} class="h-8 w-8 text-sage-700" /><h2 class="mt-5 font-serif text-2xl font-semibold text-navy-900">{r.title}</h2><p class="mt-2 text-ink-soft">{r.body}</p><span class="mt-5 inline-block font-semibold text-navy-700">Continue →</span></a>)}</div>
+    <div class="mt-10 rounded-xl bg-navy-50 p-7"><h2 class="font-serif text-2xl font-semibold text-navy-900">Protecting your information</h2><p class="mt-3 text-ink-soft">Do not send medical details through ordinary website channels. Call <a href={practice.phone.href} class="font-semibold text-navy-700 underline">{practice.phone.display}</a> or use a secure system supplied directly by the practice.</p></div>
   </section>
-
-  <section class="mx-auto max-w-7xl px-4 py-14 sm:px-6">
-    <SectionHeading
-      title="Secure tools"
-      intro="These open the practice's protected external systems, separate from this website."
-    />
-    <div class="mt-8 grid gap-6 md:grid-cols-3">
-      {
-        secure.map((s) => (
-          <a href={s.href} class="rounded-lg border border-sand-200 bg-white p-6 hover:border-navy-600">
-            <span class="flex h-11 w-11 items-center justify-center rounded-full bg-sage-50 text-sage-700" aria-hidden="true">
-              <Icon name={s.icon} class="h-5 w-5" />
-            </span>
-            <h3 class="mt-4 text-lg font-semibold text-navy-900">{s.title}</h3>
-            <p class="mt-1.5 text-ink-soft">{s.body}</p>
-            <span class="mt-3 inline-flex items-center gap-1 text-sm font-medium text-sage-700">
-              <Icon name="ph:arrow-square-out" class="h-4 w-4" aria-hidden="true" />
-              Opens a secure external system
-            </span>
-          </a>
-        ))
-      }
-    </div>
-  </section>
-
-  <section class="bg-white">
-    <div class="mx-auto max-w-4xl px-4 py-14 sm:px-6">
-      <SectionHeading title="Practical information" />
-      <div class="mt-8 space-y-5">
-        {
-          informational.map((item) => (
-            <div class="rounded-lg border border-sand-200 p-6">
-              <h3 class="text-lg font-semibold text-navy-900">{item.title}</h3>
-              <p class="mt-2 text-ink-soft">{item.body}</p>
-            </div>
-          ))
-        }
-      </div>
-      <p class="mt-8 rounded-md bg-sand-100 p-5 text-ink-soft">
-        Please do not send medical details through any general contact channel on this website. For
-        anything involving your care, call
-        <a href={practice.phone.href} class="font-semibold text-navy-700 underline">{practice.phone.display}</a>
-        or use the secure patient portal.
-      </p>
-    </div>
-  </section>
-
-  <CtaBand />
 </BaseLayout>
