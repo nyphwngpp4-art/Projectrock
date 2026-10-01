@@ -2,50 +2,57 @@
 
 ## Implemented in the demo
 
-- Unique title and meta description per page, written for patients, not
-  stuffed with keywords
-- Canonical URLs and Open Graph metadata on every page
-- One h1 per page with an ordered heading hierarchy
-- XML sitemap via @astrojs/sitemap
-- robots.txt (currently Disallow all: this is a private demo; flip at launch)
-- Descriptive internal links (no "click here")
-- Schema.org: MedicalClinic JSON-LD site-wide, Physician on profile pages,
-  FAQPage only on pages whose FAQs are actually visible (cataract, vision
-  correction)
-- Static HTML, self-hosted fonts, ~0 layout shift, minimal JS: strong Core
-  Web Vitals posture by construction
+- A unique title and meta description on every page, written for patients.
+- Canonical URLs and Open Graph metadata (the building photo is the share image).
+- One h1 per page and an ordered heading hierarchy.
+- XML sitemap via @astrojs/sitemap.
+- Descriptive internal links (no "click here").
+- Schema.org:
+  - MedicalClinic site-wide, with address, geo, phone, fax, opening hours,
+    service list, area served, and profiles.
+  - Physician on each profile.
+  - FAQPage only where the FAQs are visible (cataract, vision correction).
+  - Specialties use valid schema.org values (Surgical, Optometric).
+- Static HTML, self-hosted fonts, intrinsic image sizes, and minimal JS give
+  strong Core Web Vitals by construction.
 
-## Deliberately NOT done
+## Private-demo settings (flip all three at launch)
 
-- No thin per-city landing pages for the service-area communities. The
-  service area is presented on real pages instead. If regional search matters
-  later, build genuinely useful pages (e.g., "traveling from Sweetwater:
-  planning your visit") rather than doorway pages.
-- No FAQ schema on invisible content, no fabricated review schema, no
-  aggregate ratings markup (nothing to support it yet).
+1. `<meta name="robots" content="noindex, nofollow">` in `BaseLayout.astro`
+2. `Disallow: /` in `public/robots.txt`
+3. `X-Robots-Tag: noindex, nofollow` in `public/_headers`
 
-## Priority search themes (production)
+## Deliberately not done
+
+- No thin per-city landing pages. The current site has six (Abilene, Clyde,
+  Tye, Hamby, Impact, Hawley; the Abilene slug is misspelled `abeline-tx`).
+  Redirect them to useful pages instead, for example one "visiting from out of
+  town" page.
+- No review or rating schema until the practice authorizes a review source.
+
+## Priority search themes
 
 1. cataract surgery abilene tx / cataract surgeon abilene
 2. lasik abilene / lasik cost abilene
 3. eye doctor abilene tx / ophthalmologist abilene
 4. glaucoma specialist abilene
 5. diabetic eye exam abilene
-6. Provider-name queries (Dr. Phelan, Dr. McAdams)
+6. Provider-name queries for each of the six doctors
 
-## Recommended future pages
+## Local listings
 
-- Individual procedure depth pages (cataract lens options, ICL) once facts
-  are verified with the practice
-- A small set of patient-education articles answering real pre-consult
-  questions (cataract surgery recovery timeline, LASIK vs. RLE at 50)
-- Google Business Profile alignment: one primary phone number, consistent
-  NAP, review strategy, and the correct portal link everywhere
+The surgery center appears under several names across directories ("Abilene
+Eye Institute Cataract & Lasik Surgery Center," "Cataract and Refractive
+Surgery Center," "Abilene Cataract & Refractive"). Agree one name, then align
+the Google Business Profile, Yelp, BBB, Healthgrades, and AmSurg listings with
+the same name, phone, and address.
 
-## At launch checklist
+## Launch checklist
 
-- Replace `site` in astro.config.mjs with the production domain
-- Remove the robots.txt Disallow
-- Submit sitemap in Search Console; set up 301s from any legacy URLs that
-  change (audit the Duda site's URL inventory first)
-- Verify schema with Google's Rich Results test after real data lands
+- Set `site` in `astro.config.mjs` to the production domain.
+- Flip the three private-demo settings above.
+- 301-redirect every current URL (the 35 in the live sitemap, plus the six
+  `/services/template-service-*` URLs that already return 404) to its closest
+  new page, using a Cloudflare `_redirects` file.
+- Submit the sitemap in Search Console. Verify schema with the Rich Results
+  test.

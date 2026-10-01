@@ -1,56 +1,59 @@
 # Accessibility Notes
 
-Target: WCAG 2.2 AA. For this practice the audience skews older and includes
-people with genuinely impaired vision, so accessibility is treated as a core
-feature, not a checklist.
+Target: WCAG 2.1 AA, the standard in HHS's Section 504 rule (compliance date
+2027-05-11 for practices with 15 or more employees), and 2.2 AA where
+practical. The audience skews older and includes people with impaired vision,
+so accessibility is a core feature, not a checklist.
+
+## Automated audit (2026-10-01)
+
+axe-core (tags wcag2a, wcag2aa, wcag21a, wcag21aa, wcag22aa) on every page
+at 1366×900 and 390×844, 42 page views in all:
+
+- **Demo:** no violations, no horizontal overflow, no failed requests.
+- **Current live site, for comparison (25 pages, same widths):** 4 rule types.
+  Most are inside embedded YouTube players. The practice's own content has two
+  low-contrast links. Its posted PDFs are untagged.
+
+Automated tools catch only part of WCAG. Before launch, run a keyboard-only
+walkthrough, NVDA and VoiceOver passes, and 200% and 400% zoom reflow checks.
 
 ## Implemented
 
-- **Contrast:** body text is #24292e on warm off-white (#faf8f4), ~13:1.
-  Secondary text (#454d55) exceeds 7:1. White-on-navy CTAs (#1b3350) exceed
-  10:1. The sage accent is used at its 700 weight (#33635c) for text so links
-  and labels stay above 4.5:1.
-- **Type:** 17px base body, 1.65 line height, no thin weights, no text in
-  images, generous touch targets (min ~44px on all buttons and menu items).
-- **Structure:** one h1 per page, ordered heading hierarchy, semantic
-  landmarks (header, nav with aria-labels, main, footer), address/dl elements
-  where appropriate.
-- **Keyboard:** skip-to-content link, visible 3px focus outline on every
-  interactive element via :focus-visible, logical tab order, native
-  details/summary for FAQs (keyboard-operable for free).
-- **Mobile menu:** button with aria-expanded and aria-controls, label swaps
-  between open/close states.
-- **Self-assessment:** fieldset/legend per question, real labels wrapping each
-  radio/checkbox, progress announced via aria-live, error message with
-  role=alert, result container receives focus when shown, noscript fallback
-  points to the phone number.
-- **Forms:** callback fields use explicit label elements and autocomplete
-  attributes even though they are demonstration-only. No placeholder-as-label.
-- **Motion:** only micro-transitions; a global prefers-reduced-motion rule
-  collapses all animation and smooth scrolling.
-- **Color independence:** active nav state uses underline plus color; required
-  actions are labeled in text; no meaning carried by color alone.
-- **Images:** decorative icons are aria-hidden; meaningful placeholders carry
-  role=img with descriptive aria-labels.
+- **Contrast:**
+  - Body text #24292e on #faf8f4, about 13:1.
+  - Secondary text (#454d55) above 7:1.
+  - White-on-navy actions above 10:1.
+  - Sage accent text uses its 700 weight (#33635c).
+  - Footer fine print uses full-strength navy-100, not a faded tint.
+- **Type:** 17px base, 1.65 line height, no thin weights, no text in images,
+  touch targets of at least 44px.
+- **Structure:**
+  - One h1 per page and an ordered heading hierarchy.
+  - Landmarks: patient shortcuts nav, header, main and mobile navs, main, footer.
+  - `dl`, `address`, and table semantics where they fit. The owner-review table
+    has a caption, row headers, and a focusable scroll region.
+- **Keyboard:** a skip link, a visible 3px focus outline everywhere, logical
+  tab order, and native details and summary for FAQs.
+- **Mobile menu:** `aria-expanded` and `aria-controls`; the label switches
+  between "Open menu" and "Close menu."
+- **Self-assessment:**
+  - Each question is a fieldset with a legend, and real labels wrap each option.
+  - Progress is announced, and the error message uses `role=alert`.
+  - The result receives focus when it appears.
+  - A noscript fallback offers the phone number.
+- **Images:** intrinsic width and height on every image (no layout shift);
+  descriptive alt text; the decorative hero photo has empty alt, and its
+  description is available to screen readers.
+- **Motion:** micro-transitions only, and a global prefers-reduced-motion rule.
+- **Language:** the Spanish tagline on `/notices/` is marked `lang="es"`.
 
-## Deliberate decisions
+## Known limitations
 
-- **Single light theme.** The general guidance to ship dark mode was
-  overridden: the brief specifies a calm clinical light palette for an older
-  demographic, and a single high-contrast light theme avoids the risk of a
-  low-contrast dark variant. Documented as a decision, revisitable at
-  production.
-- **Sticky header** is kept short (64-72px) so it does not consume small
-  viewports.
-
-## Known limitations (to address at production)
-
-- Automated (axe/Lighthouse) and screen-reader (NVDA/VoiceOver) audits have
-  not been run inside this build environment; run both before launch.
-- The quiz "has-checked" visual affordance depends on a modern CSS selector;
-  the radio buttons themselves remain visible and functional in older
-  browsers, so this degrades safely.
-- Map embed, when added, will need a text alternative (address + directions
-  link already present).
-- PDF forms, if the practice supplies them, must be tagged/accessible or
-  paired with an accessible alternative.
+- The team photo is soft at hero size until the original arrives.
+- The quiz's checked-state styling uses `:has()`. Radio buttons still work in
+  older browsers.
+- Practice-supplied PDFs (forms and notices) must be tagged, or paired with
+  accessible web versions, before launch.
+- A map embed, if added, needs a text alternative (the address and directions
+  link are already present).

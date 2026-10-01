@@ -1,50 +1,66 @@
 # Production Handoff
 
 Every decision required to take this demo live. Owner: the practice, guided by
-Agavi AI. Nothing on this list is optional; the compliance items gate launch.
+Agavi AI. The compliance items gate launch.
+
+## Governance (settle first)
+
+- The surgery center is an AmSurg location, and the current site carries
+  AmSurg's website privacy policy and terms of service. Confirm who owns the
+  domain, the current Duda account, and the legal pages, and who approves
+  changes (the practice, AmSurg, or both) before any work is scoped.
+- AmSurg may already have a plan for the 2027 accessibility deadline. Ask.
 
 ## Infrastructure
 
-| Decision | Notes |
+| Decision | Status and notes |
 |---|---|
-| Domain | Keep abileneeyeinstitute.com; plan DNS cutover and 301 map from current Duda URLs |
-| Hosting | Cloudflare Pages or Vercel static hosting fits this build; either is fine |
-| CMS | Currently none (content in typed data files). Decide whether staff need self-service editing; if so, a git-based or headless CMS layer can be added without changing the front end |
+| Hosting | Cloudflare Pages, production branch `main` (see README). Demo protected with Cloudflare Access |
+| Domain | Keep abileneeyeinstitute.com. Plan DNS cutover and a 301 map from the 35 URLs in the current sitemap (see SEO-PLAN.md) |
+| CMS | None today; content lives in typed data files with provenance. Decide whether staff need self-service editing; a git-based or headless CMS can sit on top without changing the front end |
 
-## Integrations (each requires vendor verification; PHI-adjacent ones require a BAA)
+## Integrations (each needs vendor verification; anything touching PHI needs a BAA)
 
-| Integration | Demo state | Production decision |
-|---|---|---|
-| Secure scheduling / appointment requests | Placeholder page | Choose vendor; BAA; connect from /request-appointment/ |
-| Patient portal | Placeholder page | Confirm current portal URL; link out with clear labeling |
-| Bill pay | Placeholder page | Confirm current vendor (QuickClick link on live site); BAA review |
-| Referral workflow | Placeholder page | Choose secure channel (fax, direct message, vendor); publish fax number |
-| Callback capture on self-assessment | Front-end only, stores nothing | Connect to a compliant contact workflow if the practice wants web callbacks |
+| Integration | Today | Demo | Production decision |
+|---|---|---|---|
+| Scheduling | Phone only | Phone only | Stay phone-first, or add a BAA-covered scheduling vendor |
+| Patient portal | None linked | Not shown | Confirm whether one exists |
+| Bill pay | QuickClick | Links to QuickClick | Confirm vendor and BAA status |
+| Patient forms | Seven PDFs dated 2012 to 2015 | Links to the current forms page | Current versions as accessible PDFs, or a BAA-covered digital intake vendor |
+| Referrals | Phone, fax (325) 695-2326 | Phone and fax published; placeholder for a secure channel | Choose a secure channel (fax, Direct messaging, or a vendor) |
+| Self-assessment callback | n/a | Front end only, stores nothing | Connect only to a BAA-covered contact workflow, or drop the callback |
 
 ## Content
 
-- Complete the CONTENT-VERIFICATION.md confirmation call; update
-  `src/data/*.ts` with verified facts and remove on-page pending flags
-- Collect assets per ASSET-INVENTORY.md and swap placeholder slots
-- OD biographies and headshots for Sumrall, Clark, Skrobarcek
-- Reviews: choose source (Google), get authorization, link live
-- Financing partners for the vision-correction page
+- Run the confirmation call in CONTENT-VERIFICATION.md. Update `src/data/*.ts`
+  (status `confirmed`), then `npm run content:register`.
+- Photo rights and original files for the team, building, and headshots (see
+  ASSET-INVENTORY.md). Replace the two AI lifestyle images.
+- Written permission on file for the quoted patient comments.
+- Financing details for CareCredit and First Financial Bank.
 
-## Compliance & legal (gates launch)
+## Compliance and legal (gates launch)
 
-- Business Associate Agreements for every PHI-touching vendor
-- Privacy notice and Notice of Privacy Practices reviewed by counsel
-- Non-discrimination notice (Section 1557) added to footer
-- Cookie/tracking policy: current build sets no cookies; keep it that way or
-  document exactly what changes
-- Analytics decision: none, or privacy-conscious aggregate only (see
-  HIPAA-BOUNDARIES.md); never advertising pixels on health pages
-- Accessibility audit (automated + assistive-technology pass) before launch
-- Full legal review by the practice's healthcare compliance counsel
+- BAAs for every PHI-touching vendor, including any form, scheduling, or
+  messaging tool.
+- One current Notice of Privacy Practices, with an effective date, published
+  as a web page plus a download. It keeps the Texas electronic-disclosure
+  statement.
+- Nondiscrimination notice and language-assistance taglines (the 15 languages
+  on the Office for Civil Rights list for Texas) as an accessible web page,
+  linked from every page.
+- Section 504: WCAG 2.1 AA conformance by 2027-05-11 (15 or more employees),
+  including posted documents patients use.
+- Tracking: none, or cookieless aggregate analytics only. Never ad pixels (see
+  HIPAA-BOUNDARIES.md).
+- Accessibility audit (automated plus assistive-technology walkthrough) before
+  launch.
+- Full review by the practice's healthcare compliance counsel.
 
 ## Operations
 
-- Staff ownership: who approves content changes, who is trained to request them
-- Content approval workflow for anything medical (physician sign-off)
-- Ongoing maintenance: dependency updates, uptime, link checks, quarterly
-  content review (hours, roster, insurance)
+- Who approves content changes, and physician sign-off for anything medical.
+- Content workflow: edit `src/data`, run `npm run content:register`, commit,
+  and Cloudflare deploys `main`.
+- Ongoing: dependency updates, uptime and link checks, quarterly review of
+  hours, roster, and insurance.

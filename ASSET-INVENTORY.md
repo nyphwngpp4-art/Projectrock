@@ -1,56 +1,45 @@
 # Asset Inventory
 
-Every visual asset the production site needs, and what stands in for it in the
-demo. No copyrighted photography was scraped; every placeholder is labeled in
-the UI itself and easy to swap (each is an `ImagePlaceholder` component
-instance or a documented initials block).
+Every visual asset the site uses, where it comes from, and what production
+needs instead.
 
-## Needed from the practice
+## Practice photography (linked from the current website)
 
-| Asset | Used on | Demo stand-in | Production requirement |
+These are the practice's own photos, linked from the current site's image
+host (lirp.cdn-website.com) rather than copied into this repository. The links
+stop working when the current site is retired, so production needs the
+original files and confirmation of usage rights.
+
+| Asset | Size | Used on | Production need |
 |---|---|---|---|
-| Physician/OD headshots (5) | Doctor cards, profile pages | Initials monogram block with descriptive aria-label | Consistent, recent portraits, min ~800px square, neutral background |
-| Exam room photo (physician with patient) | Homepage hero | Labeled placeholder slot | Authentic practice photo; older-adult patient demographic; no staged stock clichés |
-| Building exterior | About page | Labeled placeholder slot | Daylight shot of 2120 Antilley Rd entrance |
-| Interior / waiting area | Optional, services or about | Not placed | Nice-to-have |
-| Surgical suite or equipment | Optional, cataract page | Not placed | Only if it depicts equipment the practice actually owns |
-| Logo / wordmark | Header, favicon | Typeset wordmark + eye-mark favicon (original, created for demo) | Practice's real logo files (SVG preferred) |
-| Map embed | Locations page | Labeled placeholder slot | Google Maps embed or static map at production |
+| Logo (white on transparent) | 631×142 | Footer only (navy background) | Vector (SVG) logo in dark and light versions |
+| Team photo | 800×530 | Homepage hero, under a navy overlay | Original at 2000px or wider; it is soft at hero size |
+| Building | 1440×810 | Homepage band, About page | Confirm it is current: the sign lists physician names |
+| Six headshots | 300×450 to 1920×1758 | Doctor cards and profiles | Consistent originals, at least 800px on the short side |
 
-## Created for the demo (owned, swappable)
+## AI-generated temporary images
 
-- `public/favicon.svg` - original simple eye mark, deep navy
-- Typeset header wordmark (plain HTML/CSS, no image)
-
-## AI-generated temporary assets (to be replaced with practice photography)
-
-Generated with the Higgsfield `soul_2` model for the concept demo only. All are
-environment-and-lifestyle imagery: no real named physician or patient is
-depicted, no readable text, logos, or signage appears in any image, and no
-facility or equipment is represented as the practice's own. Each renders through
-`ImagePlaceholder` in image mode, which carries the on-screen placard
+Generated 2026-07-20 with the Higgsfield `soul_2` model. They show settings and
+lifestyle only: no real physician, patient, signage, or equipment is depicted
+or presented as the practice's own. On the page they carry the placard
 "Temporary imagery, practice photography to follow."
 
-| File | Used on | Aspect | Prompt intent |
-|---|---|---|---|
-| `public/images/home-hero.jpg` | Homepage hero (`index.astro`) | 4:3 | Ophthalmologist examining an older-adult patient at a slit lamp, warm window light |
-| `public/images/vision-lifestyle.jpg` | Vision Correction band (`vision-correction.astro`) | 3:2 | Active adult outdoors on West Texas prairie at golden hour, no glasses |
-| `public/images/cataract-lifestyle.jpg` | Cataract Care band (`cataract-care.astro`) | 3:2 | Couple in their 70s walking outdoors in soft evening light |
-| `public/images/about-interior.jpg` | About page (`about.astro`) | 4:3 | Calm modern clinic waiting area, no people, warm muted palette |
+| File | Used on | Notes |
+|---|---|---|
+| `public/images/vision-lifestyle.jpg` (1600×1067) | Vision Correction | The pose reads oddly; regenerate or replace first |
+| `public/images/cataract-lifestyle.jpg` (1600×1067) | Cataract Care | Usable placeholder |
+| home-hero (not in repo) | Not used | The practice's real team photo is the better hero |
+| about-interior | Never generated | The About page uses the building photo |
 
-Each of the above is an **AI-generated temporary asset, to be replaced with
-practice photography.** They exist to show the intended editorial tone and
-composition of each slot, not to depict the real practice, its staff, or its
-patients. Replace them one file at a time as authentic photography arrives; no
-markup change is needed beyond swapping the file or the `image` path.
+## Created for the demo
 
-## Rules applied
+- `public/favicon.svg`: a simple eye mark in deep navy
+- The typeset header wordmark (HTML and CSS, no image)
 
-- No stock photo was shipped in the demo at all: for a medical practice,
-  wrong photography is worse than an honest labeled slot, and every slot is
-  one component swap away from the real asset.
-- If temporary stock is used before real photography arrives, it must look
-  authentic, match the patient demographic, avoid misrepresenting technology
-  or facilities, and be flagged here.
-- Any image too low-resolution for production gets logged here when the
-  practice supplies assets.
+## Rules
+
+- Never generate headshots or likenesses of the practice's real physicians.
+- AI imagery shows settings and lifestyle only, is labeled on the page, and is
+  replaced as practice photography arrives.
+- Wrong photography is worse than an honest placeholder. Nothing should imply
+  equipment, facilities, or outcomes the practice hasn't confirmed.
