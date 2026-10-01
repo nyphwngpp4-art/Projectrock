@@ -34,9 +34,16 @@ const { title, description, heading, body, icon } = Astro.props;
         <Icon name="ph:phone" class="h-5 w-5" aria-hidden="true" />
         Call {practice.phone.display}
       </a>
-      <p class="mt-4 text-sm text-ink-soft">
-        Office hours: Monday to Friday, 8:00 am to 5:00 pm. Hours pending confirmation.
-      </p>
+      <dl class="mt-4 space-y-1 text-sm text-ink-soft">
+        {
+          practice.hours.map((h) => (
+            <div class="flex flex-wrap gap-x-2">
+              <dt class="font-medium text-navy-900">{h.days}:</dt>
+              <dd>{h.hours}</dd>
+            </div>
+          ))
+        }
+      </dl>
     </div>
     <p class="mt-6 text-sm text-ink-soft">
       This demonstration page collects no personal or medical information.

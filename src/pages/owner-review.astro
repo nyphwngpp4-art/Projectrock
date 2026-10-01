@@ -1,17 +1,115 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-const gaps=[
- ['Navigation','Current site includes unrelated “Hair Services” and “Spa Services” remnants.','Focused patient pathways and ophthalmology-only navigation.'],
- ['Trust','Sample/template content and inconsistent calls to action weaken confidence.','Real physicians, facility imagery, sourced testimonials, and verified practice facts.'],
- ['Scheduling','Multiple phone numbers and broken or unclear action paths compete.','One primary local number and a clear call-first Stage 1 flow.'],
- ['Patient utility','Important forms, payments, and financing are buried.','A single patient hub with direct, labeled destinations.'],
- ['Service discovery','Procedures are listed, but patients must already know terminology.','Start with symptoms and goals, then connect people to the right service.'],
- ['Compliance','General marketing components risk collecting sensitive information.','No PHI collection, pixels, chatbot, or unapproved form in Stage 1.'],
+import { doctors } from '../data/doctors';
+
+// A private walkthrough page for the practice's leadership. Not linked from
+// the site navigation; the whole demo is noindex.
+const changes = [
+  {
+    area: 'Navigation',
+    today: 'The menus still carry a few template leftovers, including hair and spa service links that lead to "page not found."',
+    demo: 'Eye care only, and every link goes somewhere real.',
+  },
+  {
+    area: 'LASIK self-test',
+    today: 'The homepage "Take our LASIK self test" heading is not linked to anything yet.',
+    demo: 'A working two-minute self-assessment. Lifestyle questions only, and nothing is saved or sent.',
+  },
+  {
+    area: 'Phone numbers',
+    today: 'Three different numbers appear in different places.',
+    demo: 'One number everywhere, with tap-to-call on phones.',
+  },
+  {
+    area: 'Hours and doctors',
+    today: 'Friday hours and the doctor list read differently from page to page.',
+    demo: `One source of truth for hours, phone, fax, and all ${doctors.length} doctors, so every page agrees.`,
+  },
+  {
+    area: 'Patient notices',
+    today: 'The privacy and nondiscrimination notices are posted as PDFs, which screen readers handle poorly.',
+    demo: 'A notices page ready for accessible web versions, with the PDFs kept as downloads.',
+  },
+  {
+    area: 'Accessibility',
+    today: 'Automated checks find only a few issues, mostly inside embedded videos; the PDFs are the bigger gap.',
+    demo: 'Built to WCAG 2.1 AA, the standard in the federal rule with a May 11, 2027 deadline.',
+  },
+];
+
+const confirm = [
+  'Roster, credentials, and bios for all six doctors, in your words',
+  'Friday hours, and which phone numbers should appear',
+  'How to name the surgery center',
+  'Photo rights and original image files',
+  'Current patient forms and one current privacy notice',
 ];
 ---
-<BaseLayout title="Owner Review | Abilene Eye Institute Demo" description="Private comparison and launch discussion for the Abilene Eye Institute website concept." noindex>
-  <section class="bg-navy-900 text-white"><div class="mx-auto max-w-6xl px-4 py-16 sm:px-6"><p class="text-sm font-semibold uppercase tracking-[0.18em] text-sage-100">Private owner review · not indexed</p><h1 class="mt-4 font-serif text-5xl font-semibold">What this demo changes—and why</h1><p class="mt-5 max-w-3xl text-lg text-navy-100">A patient-first digital front door that preserves the practice’s real strengths while removing template residue, confusion, and compliance risk.</p></div></section>
-  <section class="mx-auto max-w-6xl px-4 py-16 sm:px-6"><div class="overflow-x-auto rounded-xl border border-sand-200 bg-white"><table class="w-full min-w-[760px] text-left"><thead class="bg-navy-50 text-navy-900"><tr><th class="p-5">Area</th><th class="p-5">Current website</th><th class="p-5">Enhanced demo</th></tr></thead><tbody>{gaps.map(g=><tr class="border-t border-sand-200 align-top"><th class="p-5 text-navy-900">{g[0]}</th><td class="p-5 text-ink-soft">{g[1]}</td><td class="p-5 text-ink-soft">{g[2]}</td></tr>)}</tbody></table></div>
-    <div class="mt-12 grid gap-6 md:grid-cols-2"><div class="rounded-xl bg-sage-50 p-7"><h2 class="font-serif text-2xl font-semibold text-navy-900">Stage 1 boundary</h2><p class="mt-3 text-ink-soft">Public information, phone calls, and links to existing approved external systems only. No patient intake, clinical details, advertising pixels, or chatbot.</p></div><div class="rounded-xl bg-sand-100 p-7"><h2 class="font-serif text-2xl font-semibold text-navy-900">Before production</h2><p class="mt-3 text-ink-soft">Confirm the active provider roster, primary phone, hours, legal notices, review permissions, surgical-center wording, and rights to original photo files. Replace temporary current-site image URLs with approved optimized assets.</p></div></div>
+
+<BaseLayout
+  title="Owner Review | Abilene Eye Institute Demo"
+  description="A private walkthrough of the Abilene Eye Institute website concept for the practice's leadership."
+>
+  <section class="bg-navy-900 text-white">
+    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+      <p class="text-sm font-semibold uppercase tracking-[0.18em] text-sage-100">Private walkthrough · not indexed</p>
+      <h1 class="mt-4 font-serif text-4xl font-semibold sm:text-5xl">What this demo shows, and what it is not yet</h1>
+      <p class="mt-5 max-w-3xl text-lg text-navy-100">
+        A patient-first version of the practice's website built from what the practice already
+        publishes: the same doctors, services, and photography, organized so patients and their
+        families can find their way quickly.
+      </p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+    <h2 class="font-serif text-3xl font-semibold text-navy-900">Side by side</h2>
+    <div class="mt-8 overflow-x-auto rounded-xl border border-sand-200 bg-white" tabindex="0" role="region" aria-label="Comparison of the current site and this demo">
+      <table class="w-full min-w-[720px] text-left">
+        <caption class="sr-only">How the current website and this demo compare, area by area</caption>
+        <thead class="bg-navy-50 text-navy-900">
+          <tr>
+            <th scope="col" class="p-5">Area</th>
+            <th scope="col" class="p-5">Today</th>
+            <th scope="col" class="p-5">In this demo</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            changes.map((c) => (
+              <tr class="border-t border-sand-200 align-top">
+                <th scope="row" class="p-5 text-navy-900">{c.area}</th>
+                <td class="p-5 text-ink-soft">{c.today}</td>
+                <td class="p-5 text-ink-soft">{c.demo}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <div class="mt-12 grid gap-6 md:grid-cols-2">
+      <div class="rounded-xl bg-sage-50 p-7">
+        <h2 class="font-serif text-2xl font-semibold text-navy-900">What it deliberately leaves out</h2>
+        <p class="mt-3 text-ink-soft">
+          Public information, phone calls, and links to the practice's existing systems only. No
+          patient intake, no ad tracking, no chatbot, and nothing that collects health information.
+          Anything like that comes later, only through services covered by a HIPAA business associate
+          agreement.
+        </p>
+      </div>
+      <div class="rounded-xl bg-sand-100 p-7">
+        <h2 class="font-serif text-2xl font-semibold text-navy-900">What we would confirm together</h2>
+        <ul class="mt-3 list-disc space-y-1.5 pl-5 text-ink-soft">
+          {confirm.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+    </div>
+
+    <p class="mt-10 text-sm text-ink-soft">
+      Practice photography on this demo is linked from the current website. Two lifestyle images
+      (on the cataract and vision correction pages) are AI-generated placeholders and are labeled as
+      temporary.
+    </p>
   </section>
 </BaseLayout>

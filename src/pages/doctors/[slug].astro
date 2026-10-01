@@ -4,17 +4,28 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import { doctors } from '../../data/doctors';
 import { practice } from '../../data/practice';
+import { shown } from '../../data/sources';
 
 export function getStaticPaths() {
   return doctors.map((doctor) => ({ params: { slug: doctor.slug }, props: { doctor } }));
 }
 
 const { doctor } = Astro.props;
+
+// Only facts the practice publishes or has confirmed; pending ones live in
+// CONTENT-VERIFICATION.md until resolved.
+const bio = shown(doctor.bio);
+const education = shown(doctor.education);
+const credentials = shown(doctor.credentials);
+const languages = shown(doctor.languages);
+const surname = doctor.name.split(' ').at(-1);
+
 const physicianSchema = {
   '@context': 'https://schema.org',
   '@type': 'Physician',
   name: `${doctor.name}, ${doctor.degree}`,
-  medicalSpecialty: doctor.degree === 'MD' ? 'Ophthalmologic' : 'Optometric',
+  medicalSpecialty: doctor.degree === 'MD' ? 'https://schema.org/Surgical' : 'https://schema.org/Optometric',
+  image: doctor.image.src,
   worksFor: { '@type': 'MedicalClinic', name: practice.name },
 };
 ---
@@ -26,22 +37,24 @@ const physicianSchema = {
 >
   <section class="bg-white">
     <div class="mx-auto grid max-w-5xl gap-10 px-4 pb-14 pt-12 sm:px-6 md:grid-cols-[240px_1fr] lg:pt-16">
-      <img src={doctor.image} alt={`${doctor.name}, ${doctor.degree}`} class="mx-auto h-72 w-56 rounded-xl object-cover object-top shadow-lg md:mx-0" />
+      <img
+        src={doctor.image.src}
+        alt={`${doctor.name}, ${doctor.degree}`}
+        width={doctor.image.width}
+        height={doctor.image.height}
+        class="mx-auto h-72 w-56 rounded-xl object-cover object-top shadow-lg md:mx-0"
+      />
       <div>
-        <h1 class="font-serif text-4xl font-semibold text-navy-900">
-          {doctor.name}, {doctor.degree}
-        </h1>
+        <h1 class="font-serif text-4xl font-semibold text-navy-900">{doctor.name}, {doctor.degree}</h1>
         <p class="mt-2 text-lg font-medium text-sage-700">{doctor.role}</p>
-        {doctor.languages && (
-          <p class="mt-2 text-ink-soft">Sees patients in {doctor.languages.join(' and ')}.</p>
-        )}
+        {
+          languages.length > 0 && (
+            <p class="mt-2 text-ink-soft">Also sees patients in {languages.map((l) => l.text).join(' and ')}.</p>
+          )
+        }
         <h2 class="mt-6 text-sm font-semibold uppercase tracking-wider text-ink">Clinical focus</h2>
         <ul class="mt-3 flex flex-wrap gap-2">
-          {
-            doctor.focus.map((f) => (
-              <li class="rounded-full bg-sand-100 px-4 py-1.5 font-medium text-navy-800">{f}</li>
-            ))
-          }
+          {doctor.focus.map((f) => <li class="rounded-full bg-sand-100 px-4 py-1.5 font-medium text-navy-800">{f}</li>)}
         </ul>
       </div>
     </div>
@@ -50,75 +63,56 @@ const physicianSchema = {
   <section class="mx-auto max-w-5xl px-4 py-12 sm:px-6">
     <div class="grid gap-10 md:grid-cols-[1fr_320px]">
       <div>
-        <h2 class="font-serif text-2xl font-semibold text-navy-900">About</h2>
+        <h2 class="font-serif text-2xl font-semibold text-navy-900">About Dr. {surname}</h2>
+        {bio.map((p) => <p class="mt-4 text-ink-soft">{p.text}</p>)}
+
         {
-          doctor.bio.length > 0 ? (
-            doctor.bio.map((p) => <p class="mt-4 text-ink-soft">{p}</p>)
-          ) : (
-            <p class="mt-4 rounded-md bg-sand-100 p-5 text-ink-soft">
-              Biography pending verification with the practice. No details are published here until
-              they are confirmed.
-            </p>
+          education.length > 0 && (
+            <>
+              <h2 class="mt-10 font-serif text-2xl font-semibold text-navy-900">Education &amp; training</h2>
+              <ul class="mt-4 space-y-2">
+                {education.map((e) => (
+                  <li class="flex items-start gap-3">
+                    <Icon name="ph:graduation-cap" class="mt-1 h-5 w-5 shrink-0 text-sage-700" aria-hidden="true" />
+                    {e.text}
+                  </li>
+                ))}
+              </ul>
+            </>
           )
         }
 
-        <h2 class="mt-10 font-serif text-2xl font-semibold text-navy-900">Education & Training</h2>
         {
-          doctor.education.length > 0 ? (
-            <ul class="mt-4 space-y-2">
-              {doctor.education.map((e) => (
-                <li class="flex items-start gap-3">
-                  <Icon name="ph:graduation-cap" class="mt-1 h-5 w-5 shrink-0 text-sage-700" aria-hidden="true" />
-                  {e}
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p class="mt-4 rounded-md bg-sand-100 p-5 text-ink-soft">
-              Education and training details pending verification with the practice.
-            </p>
-          )
-        }
-
-        <h2 class="mt-10 font-serif text-2xl font-semibold text-navy-900">Credentials & Memberships</h2>
-        {
-          doctor.credentials.length > 0 ? (
-            <ul class="mt-4 space-y-2">
-              {doctor.credentials.map((c) => (
-                <li class="flex items-start gap-3">
-                  <Icon name="ph:seal-check" class="mt-1 h-5 w-5 shrink-0 text-sage-700" aria-hidden="true" />
-                  {c}
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p class="mt-4 rounded-md bg-sand-100 p-5 text-ink-soft">
-              Credentials pending verification with the practice. Nothing is listed here that has
-              not been confirmed.
-            </p>
+          credentials.length > 0 && (
+            <>
+              <h2 class="mt-10 font-serif text-2xl font-semibold text-navy-900">Credentials &amp; memberships</h2>
+              <ul class="mt-4 space-y-2">
+                {credentials.map((c) => (
+                  <li class="flex items-start gap-3">
+                    <Icon name="ph:seal-check" class="mt-1 h-5 w-5 shrink-0 text-sage-700" aria-hidden="true" />
+                    {c.text}
+                  </li>
+                ))}
+              </ul>
+            </>
           )
         }
       </div>
 
-      <aside class="h-fit rounded-lg border border-sand-200 bg-white p-6">
-        <h2 class="font-serif text-xl font-semibold text-navy-900">See {doctor.name.split(' ')[0]} {doctor.name.split(' ').at(-1)}, {doctor.degree}</h2>
+      <aside class="h-fit rounded-lg border border-sand-200 bg-white p-6" aria-label={`Schedule with Dr. ${surname}`}>
+        <h2 class="font-serif text-xl font-semibold text-navy-900">See Dr. {surname}</h2>
         <p class="mt-2 text-ink-soft">
           {practice.address.street}<br />
           {practice.address.city}, {practice.address.state} {practice.address.zip}
         </p>
         <a
-          href={practice.phone.href}
+          href={practice.links.call}
           class="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-md bg-navy-800 px-5 py-3 font-semibold text-white hover:bg-navy-700"
         >
           <Icon name="ph:phone" class="h-5 w-5" aria-hidden="true" />
           Call {practice.phone.display}
         </a>
-        <a
-          href={practice.links.requestAppointment}
-          class="mt-3 inline-flex w-full items-center justify-center rounded-md border-2 border-navy-800 px-5 py-3 font-semibold text-navy-800 hover:bg-navy-50"
-        >
-          Request Appointment
-        </a>
+        <p class="mt-3 text-sm text-ink-soft">Visits are scheduled by phone.</p>
       </aside>
     </div>
   </section>

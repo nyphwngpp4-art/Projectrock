@@ -3,52 +3,247 @@ import { Icon } from 'astro-icon/components';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import DoctorCard from '../components/DoctorCard.astro';
 import { practice } from '../data/practice';
-import { doctors } from '../data/doctors';
-const pathways=[
- {title:'Cataract care',text:'Cloudy, dim, or glare-filled vision? Understand evaluations, lens options, and surgery.',href:'/cataract-care/',icon:'ph:eye'},
- {title:'Vision correction',text:'Explore LASIK, implantable lenses, and lens-based options with a surgeon.',href:'/vision-correction/',icon:'ph:sparkle'},
- {title:'Medical eye care',text:'Coordinated care for glaucoma, diabetes, macular degeneration, dry eye, and corneal disease.',href:'/medical-eye-care/',icon:'ph:first-aid-kit'},
- {title:'Patient resources',text:'Forms, bill pay, financing, directions, and practical visit information in one place.',href:'/patient-resources/',icon:'ph:folder-user'},
+import { doctors, optometrists, surgeons } from '../data/doctors';
+
+const { team, building } = practice.assets;
+
+const pathways = [
+  {
+    title: 'Cataract care',
+    text: 'Cloudy, dim, or glare-filled vision? Understand evaluations, lens options, and surgery.',
+    href: '/cataract-care/',
+    icon: 'ph:eye',
+  },
+  {
+    title: 'Vision correction',
+    text: 'Explore LASIK, implantable lenses, and lens-based options with a surgeon.',
+    href: '/vision-correction/',
+    icon: 'ph:sparkle',
+  },
+  {
+    title: 'Medical eye care',
+    text: 'Coordinated care for glaucoma, diabetes, macular degeneration, dry eye, and corneal disease.',
+    href: '/medical-eye-care/',
+    icon: 'ph:first-aid-kit',
+  },
+  {
+    title: 'Patient resources',
+    text: 'Forms, bill pay, financing, directions, and practical visit information in one place.',
+    href: '/patient-resources/',
+    icon: 'ph:folder-user',
+  },
 ];
-const reviews=[
- {quote:'They made me feel comfortable and listened to my concerns.',name:'Rhonda S.'},
- {quote:'Great staff and treatment. I appreciate how much they did to accommodate an out-of-town visitor.',name:'Dreanna B.'},
- {quote:'Wonderful staff, wonderful doctor.',name:'Frank C.'},
+
+const stats = [
+  { value: `Since ${practice.foundingYear}`, label: 'Rooted in the Big Country' },
+  { value: 'One building', label: 'Clinic and surgery center together' },
+  { value: `${doctors.length} doctors`, label: `${surgeons.length} ophthalmologists, ${optometrists.length} optometrists` },
+  { value: 'One team', label: 'Coordinated before and after treatment' },
+];
+
+// Excerpts the practice already publishes on its reviews page; permission is
+// on the confirmation list in CONTENT-VERIFICATION.md.
+const reviews = [
+  { quote: 'They made me feel comfortable and listened to my concerns.', name: 'Rhonda S.' },
+  { quote: 'Great staff and treatment. I appreciate how much they did to accommodate an out-of-town visitor.', name: 'Dreanna B.' },
+  { quote: 'Wonderful staff, wonderful doctor.', name: 'Frank C.' },
 ];
 ---
-<BaseLayout title="Abilene Eye Institute | Advanced Eye Care in Abilene, Texas" description="Cataract surgery, vision correction, and medical eye care from a coordinated team serving Abilene and the Big Country.">
-  <section class="relative isolate min-h-[640px] overflow-hidden bg-navy-900 text-white">
-    <img src={practice.assets.team} alt="Abilene Eye Institute doctors" class="absolute inset-0 h-full w-full object-cover object-center opacity-55" />
-    <div class="absolute inset-0 bg-gradient-to-r from-navy-900 via-navy-900/90 to-navy-900/20"></div>
-    <div class="relative mx-auto flex min-h-[640px] max-w-7xl items-center px-4 py-20 sm:px-6">
+
+<BaseLayout
+  title="Abilene Eye Institute | Cataract, LASIK & Medical Eye Care in Abilene, TX"
+  description="Cataract surgery, vision correction, and medical eye care from a coordinated team serving Abilene and the Big Country since 1987."
+>
+  <section class="relative isolate overflow-hidden bg-navy-900 text-white">
+    <img
+      src={team.src}
+      alt=""
+      width={team.width}
+      height={team.height}
+      fetchpriority="high"
+      class="absolute inset-0 -z-10 h-full w-full object-cover object-center opacity-55"
+    />
+    <div class="absolute inset-0 -z-10 bg-gradient-to-r from-navy-900 via-navy-900/90 to-navy-900/20" aria-hidden="true"></div>
+    <div class="mx-auto flex min-h-[600px] max-w-7xl items-center px-4 py-20 sm:px-6">
       <div class="max-w-2xl">
-        <p class="text-sm font-semibold uppercase tracking-[0.2em] text-sage-100">Medical &amp; surgical eye care · Abilene, Texas</p>
-        <h1 class="mt-5 font-serif text-5xl font-semibold leading-[1.02] sm:text-7xl">Advanced eye care.<br />Personal attention.<br />Close to home.</h1>
-        <p class="mt-6 max-w-xl text-xl text-navy-100">From your first conversation through recovery, your care stays connected to the physicians and team who know you.</p>
-        <div class="mt-9 flex flex-col gap-3 sm:flex-row"><a href={practice.phone.href} class="inline-flex items-center justify-center rounded-md bg-white px-7 py-4 text-lg font-bold text-navy-900 hover:bg-sand-100"><Icon name="ph:phone" class="mr-2 h-5 w-5" />Call {practice.phone.display}</a><a href="/cataract-care/" class="inline-flex items-center justify-center rounded-md border border-white/60 bg-white/10 px-7 py-4 text-lg font-semibold text-white backdrop-blur hover:bg-white/20">Explore cataract care</a></div>
+        <p class="text-sm font-semibold uppercase tracking-[0.2em] text-sage-100">
+          Medical &amp; surgical eye care · Abilene, Texas
+        </p>
+        <h1 class="mt-5 font-serif text-5xl font-semibold leading-[1.04] sm:text-7xl">
+          Advanced eye care.<br />Personal attention.<br />Close to home.
+        </h1>
+        <p class="mt-6 max-w-xl text-xl text-navy-100">
+          From your first visit through recovery, your care stays with the physicians and team who
+          know you.
+        </p>
+        <div class="mt-9 flex flex-col gap-3 sm:flex-row">
+          <a
+            href={practice.links.call}
+            class="inline-flex items-center justify-center gap-2 rounded-md bg-white px-7 py-4 text-lg font-bold text-navy-900 hover:bg-sand-100"
+          >
+            <Icon name="ph:phone" class="h-5 w-5" aria-hidden="true" />
+            Call {practice.phone.display}
+          </a>
+          <a
+            href="/cataract-care/"
+            class="inline-flex items-center justify-center rounded-md border border-white/60 bg-white/10 px-7 py-4 text-lg font-semibold text-white backdrop-blur hover:bg-white/20"
+          >
+            Explore cataract care
+          </a>
+        </div>
+      </div>
+    </div>
+    <p class="sr-only">{team.alt}</p>
+  </section>
+
+  <section class="border-b border-sand-200 bg-white" aria-label="At a glance">
+    <dl class="mx-auto grid max-w-7xl divide-y divide-sand-200 px-4 sm:grid-cols-2 sm:divide-x sm:divide-y-0 sm:px-6 lg:grid-cols-4">
+      {
+        stats.map((s) => (
+          <div class="flex flex-col-reverse py-8 sm:px-6">
+            <dt class="mt-1 text-sm text-ink-soft">{s.label}</dt>
+            <dd class="font-serif text-3xl font-semibold text-navy-900">{s.value}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </section>
+
+  <section class="mx-auto max-w-7xl px-4 py-20 sm:px-6">
+    <div class="max-w-3xl">
+      <p class="text-sm font-semibold uppercase tracking-[0.18em] text-sage-700">Start with what you need</p>
+      <h2 class="mt-3 font-serif text-4xl font-semibold text-navy-900 sm:text-5xl">A clearer path to the right care</h2>
+      <p class="mt-4 text-lg text-ink-soft">You do not need to know the medical name for a problem before you begin.</p>
+    </div>
+    <div class="mt-10 grid gap-5 md:grid-cols-2">
+      {
+        pathways.map((p) => (
+          <a
+            href={p.href}
+            class="group rounded-xl border border-sand-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:border-sage-600 hover:shadow-lg"
+          >
+            <Icon name={p.icon} class="h-8 w-8 text-sage-700" aria-hidden="true" />
+            <h3 class="mt-5 font-serif text-2xl font-semibold text-navy-900">{p.title}</h3>
+            <p class="mt-2 text-ink-soft">{p.text}</p>
+            <span class="mt-5 inline-block font-semibold text-navy-700">
+              Learn more<span aria-hidden="true"> →</span>
+            </span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="bg-navy-50">
+    <div class="mx-auto grid max-w-7xl items-center gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2">
+      <div class="overflow-hidden rounded-2xl shadow-xl">
+        <img
+          src={building.src}
+          alt={building.alt}
+          width={building.width}
+          height={building.height}
+          loading="lazy"
+          decoding="async"
+          class="h-full min-h-[320px] w-full object-cover"
+        />
+      </div>
+      <div>
+        <p class="text-sm font-semibold uppercase tracking-[0.18em] text-sage-700">Care without the metro trip</p>
+        <h2 class="mt-3 font-serif text-4xl font-semibold text-navy-900">
+          Evaluation, surgery, and follow-up in one Abilene building
+        </h2>
+        <p class="mt-5 text-lg text-ink-soft">
+          The clinic and its ambulatory surgical center share one building on Antilley Road. Patients
+          meet their surgeon early, hear the plan in plain language, and keep follow-up care close to
+          home.
+        </p>
+        <ul class="mt-7 space-y-3">
+          {
+            [
+              'Meet the surgeon involved in your care',
+              'Medical and surgical care under one roof',
+              'A direct pathway for referring optometrists and physicians',
+            ].map((item) => (
+              <li class="flex gap-3">
+                <Icon name="ph:check-circle" class="mt-1 h-5 w-5 shrink-0 text-sage-700" aria-hidden="true" />
+                <span>{item}</span>
+              </li>
+            ))
+          }
+        </ul>
+        <a href="/about/" class="mt-8 inline-flex font-semibold text-navy-700 hover:underline">
+          See how the practice works<span aria-hidden="true">&nbsp;→</span>
+        </a>
       </div>
     </div>
   </section>
 
-  <section class="border-b border-sand-200 bg-white"><div class="mx-auto grid max-w-7xl divide-y divide-sand-200 px-4 sm:grid-cols-2 sm:divide-x sm:divide-y-0 sm:px-6 lg:grid-cols-4">
-    <div class="py-8 sm:px-6"><p class="font-serif text-3xl font-semibold text-navy-900">Since 1987</p><p class="mt-1 text-sm text-ink-soft">Rooted in the Big Country</p></div>
-    <div class="py-8 sm:px-6"><p class="font-serif text-3xl font-semibold text-navy-900">One location</p><p class="mt-1 text-sm text-ink-soft">Clinic and surgical care together</p></div>
-    <div class="py-8 sm:px-6"><p class="font-serif text-3xl font-semibold text-navy-900">6 doctors</p><p class="mt-1 text-sm text-ink-soft">Ophthalmology and optometry</p></div>
-    <div class="py-8 sm:px-6"><p class="font-serif text-3xl font-semibold text-navy-900">One team</p><p class="mt-1 text-sm text-ink-soft">Coordinated before and after treatment</p></div>
-  </div></section>
-
-  <section class="mx-auto max-w-7xl px-4 py-20 sm:px-6"><div class="max-w-3xl"><p class="text-sm font-semibold uppercase tracking-[0.18em] text-sage-700">Start with what you need</p><h2 class="mt-3 font-serif text-4xl font-semibold text-navy-900 sm:text-5xl">A clearer path to the right care</h2><p class="mt-4 text-lg text-ink-soft">You do not need to know the medical name for a problem before you begin.</p></div>
-    <div class="mt-10 grid gap-5 md:grid-cols-2">{pathways.map(p=><a href={p.href} class="group rounded-xl border border-sand-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:border-sage-600 hover:shadow-lg"><Icon name={p.icon} class="h-8 w-8 text-sage-700" /><h3 class="mt-5 font-serif text-2xl font-semibold text-navy-900">{p.title}</h3><p class="mt-2 text-ink-soft">{p.text}</p><span class="mt-5 inline-block font-semibold text-navy-700">Learn more <span aria-hidden="true">→</span></span></a>)}</div>
+  <section class="mx-auto max-w-7xl px-4 py-20 sm:px-6">
+    <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+      <div>
+        <p class="text-sm font-semibold uppercase tracking-[0.18em] text-sage-700">The care team</p>
+        <h2 class="mt-3 font-serif text-4xl font-semibold text-navy-900">Doctors who stay connected to your care</h2>
+      </div>
+      <a href="/doctors/" class="font-semibold text-navy-700 hover:underline">
+        Meet all {doctors.length} doctors<span aria-hidden="true"> →</span>
+      </a>
+    </div>
+    <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {doctors.slice(0, 3).map((d) => <DoctorCard doctor={d} />)}
+    </div>
   </section>
 
-  <section class="bg-navy-50"><div class="mx-auto grid max-w-7xl items-center gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2">
-    <div class="overflow-hidden rounded-2xl shadow-xl"><img src={practice.assets.building} alt="Abilene Eye Institute building at 2120 Antilley Road" class="h-full min-h-[430px] w-full object-cover" loading="lazy" /></div>
-    <div><p class="text-sm font-semibold uppercase tracking-[0.18em] text-sage-700">Care without the metro trip</p><h2 class="mt-3 font-serif text-4xl font-semibold text-navy-900">Your evaluation, procedure, and follow-up—connected in Abilene</h2><p class="mt-5 text-lg text-ink-soft">The practice’s clinic and ambulatory surgical center are in the same building. Patients can meet their surgeon early, understand the plan in plain language, and keep follow-up care close to home.</p><ul class="mt-7 space-y-3">{['Meet the surgeon involved in your care','Medical and surgical teams under one roof','Clear coordination with referring providers'].map(x=><li class="flex gap-3"><Icon name="ph:check-circle" class="mt-1 h-5 w-5 shrink-0 text-sage-700" /><span>{x}</span></li>)}</ul><a href="/about/" class="mt-8 inline-flex font-semibold text-navy-700 hover:underline">See how the practice works <span class="ml-2">→</span></a></div>
-  </div></section>
+  <section class="border-y border-sand-200 bg-sand-100">
+    <div class="mx-auto flex max-w-7xl flex-col items-start gap-6 px-4 py-14 sm:px-6 lg:flex-row lg:items-center lg:justify-between">
+      <div class="max-w-2xl">
+        <h2 class="font-serif text-3xl font-semibold text-navy-900">Wondering about LASIK?</h2>
+        <p class="mt-2 text-lg text-ink-soft">
+          Take the two-minute self-assessment. Four lifestyle questions, nothing about your medical
+          history, and nothing you choose is saved or sent.
+        </p>
+      </div>
+      <a
+        href="/vision-correction/#self-assessment"
+        class="inline-flex items-center gap-2 rounded-md bg-sage-700 px-6 py-3.5 text-lg font-semibold text-white hover:bg-sage-600"
+      >
+        <Icon name="ph:clipboard-text" class="h-5 w-5" aria-hidden="true" />
+        Take the self-assessment
+      </a>
+    </div>
+  </section>
 
-  <section class="mx-auto max-w-7xl px-4 py-20 sm:px-6"><div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-end"><div><p class="text-sm font-semibold uppercase tracking-[0.18em] text-sage-700">The care team</p><h2 class="mt-3 font-serif text-4xl font-semibold text-navy-900">Doctors who stay connected to your care</h2></div><a href="/doctors/" class="font-semibold text-navy-700 hover:underline">Meet all six doctors →</a></div><div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">{doctors.slice(0,3).map(d=><DoctorCard doctor={d} />)}</div></section>
+  <section class="bg-white">
+    <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6">
+      <div class="text-center">
+        <p class="text-sm font-semibold uppercase tracking-[0.18em] text-sage-700">Patient perspectives</p>
+        <h2 class="mt-3 font-serif text-4xl font-semibold text-navy-900">Care people remember</h2>
+      </div>
+      <div class="mt-10 grid gap-6 md:grid-cols-3">
+        {
+          reviews.map((r) => (
+            <figure class="rounded-xl border border-sand-200 bg-sand-50 p-7">
+              <blockquote class="font-serif text-xl leading-relaxed text-navy-900">“{r.quote}”</blockquote>
+              <figcaption class="mt-5 font-semibold text-ink-soft">{r.name}</figcaption>
+            </figure>
+          ))
+        }
+      </div>
+      <p class="mt-6 text-center text-sm text-ink-soft">
+        Excerpts published on the practice's current website.
+        <a href={practice.links.reviews} class="font-semibold text-navy-700 underline">View the source</a>.
+      </p>
+    </div>
+  </section>
 
-  <section class="bg-white"><div class="mx-auto max-w-7xl px-4 py-20 sm:px-6"><div class="text-center"><p class="text-sm font-semibold uppercase tracking-[0.18em] text-sage-700">Patient perspectives</p><h2 class="mt-3 font-serif text-4xl font-semibold text-navy-900">Care people remember</h2></div><div class="mt-10 grid gap-6 md:grid-cols-3">{reviews.map(r=><figure class="rounded-xl border border-sand-200 bg-sand-50 p-7"><blockquote class="font-serif text-xl leading-relaxed text-navy-900">“{r.quote}”</blockquote><figcaption class="mt-5 font-semibold text-ink-soft">— {r.name}</figcaption></figure>)}</div><p class="mt-6 text-center text-sm text-ink-soft">Excerpts published on the practice’s current website. <a href={practice.links.reviews} class="font-semibold text-navy-700 underline">View source</a>.</p></div></section>
-
-  <section class="bg-sage-700 text-white"><div class="mx-auto flex max-w-7xl flex-col items-start justify-between gap-8 px-4 py-14 sm:px-6 lg:flex-row lg:items-center"><div><h2 class="font-serif text-3xl font-semibold">Ready to talk with the team?</h2><p class="mt-2 text-sage-100">Call the office for scheduling, questions, or help choosing the right next step.</p></div><a href={practice.phone.href} class="rounded-md bg-white px-7 py-4 text-lg font-bold text-sage-700">Call {practice.phone.display}</a></div></section>
+  <section class="bg-sage-700 text-white">
+    <div class="mx-auto flex max-w-7xl flex-col items-start justify-between gap-8 px-4 py-14 sm:px-6 lg:flex-row lg:items-center">
+      <div>
+        <h2 class="font-serif text-3xl font-semibold">Ready to talk with the team?</h2>
+        <p class="mt-2 text-sage-50">Call the office for scheduling, questions, or help choosing the right next step.</p>
+      </div>
+      <a href={practice.links.call} class="rounded-md bg-white px-7 py-4 text-lg font-bold text-sage-700 hover:bg-sand-100">
+        Call {practice.phone.display}
+      </a>
+    </div>
+  </section>
 </BaseLayout>

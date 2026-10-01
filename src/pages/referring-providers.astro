@@ -75,8 +75,8 @@ const surgeons = doctors.filter((d) => d.degree === 'MD');
           By phone
         </h3>
         <p class="mt-2 text-ink-soft">
-          Call <a href={practice.phone.href} class="font-semibold text-navy-700 underline">{practice.phone.display}</a>
-          and ask for the referral coordinator. Fax number pending confirmation with the practice.
+          Call <a href={practice.links.call} class="font-semibold text-navy-700 underline">{practice.phone.display}</a>
+          and ask for the referral coordinator, or fax referrals to {practice.fax.display}.
         </p>
       </div>
       <div class="rounded-lg border border-sand-200 bg-white p-6">
@@ -97,7 +97,7 @@ const surgeons = doctors.filter((d) => d.degree === 'MD');
       <p class="mt-2 text-lg">
         For same-day concerns such as sudden vision loss, suspected retinal detachment, or acute
         pressure spikes, call
-        <a href={practice.phone.href} class="font-semibold underline">{practice.phone.display}</a>
+        <a href={practice.links.call} class="font-semibold underline">{practice.phone.display}</a>
         and identify the call as an urgent provider referral so we can move your patient to the
         front of the schedule.
       </p>

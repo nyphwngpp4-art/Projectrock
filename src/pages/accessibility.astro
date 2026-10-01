@@ -1,28 +1,32 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { practice } from '../data/practice';
 ---
 
 <BaseLayout
   title="Accessibility Statement | Abilene Eye Institute"
-  description="Accessibility commitment and features of the Abilene Eye Institute website demonstration."
+  description="Accessibility commitment and features of the Abilene Eye Institute website."
 >
   <section class="mx-auto max-w-3xl px-4 py-16 sm:px-6">
     <h1 class="font-serif text-4xl font-semibold text-navy-900">Accessibility statement</h1>
     <div class="mt-6 space-y-5 text-lg text-ink-soft">
       <p>
-        An eye care practice's website should be usable by people with low vision. This site is
-        designed to WCAG 2.2 AA: strong color contrast, large readable text, visible keyboard focus,
-        a skip-navigation link, semantic headings, descriptive labels, and support for reduced-motion
-        preferences.
+        An eye care practice's website should work for people with low vision and for everyone who
+        uses assistive technology. This site is built to the Web Content Accessibility Guidelines
+        (WCAG) 2.1 Level AA, and to 2.2 AA where practical: strong color contrast, large readable
+        text, visible keyboard focus, a skip-navigation link, semantic headings, descriptive labels,
+        and support for reduced-motion settings.
       </p>
       <p>
         The self-assessment and all navigation work with a keyboard alone and with screen readers.
-        No information on this site is conveyed by color alone, and no text is baked into images.
+        No information is conveyed by color alone, and no text is baked into images. Every page is
+        checked with automated accessibility testing at desktop and phone sizes; automated tools
+        catch only part of what matters, so people review it too.
       </p>
       <p>
-        If any part of this site is difficult to use with assistive technology, please tell the
-        office so it can be corrected. Known limitations are documented in the project's
-        accessibility notes.
+        If anything on this site is hard to use, please call
+        <a href={practice.links.call} class="font-semibold text-navy-700 underline">{practice.phone.display}</a>
+        and the office will help you directly and make sure it gets fixed.
       </p>
     </div>
   </section>

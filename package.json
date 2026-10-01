@@ -8,7 +8,11 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "check": "astro check"
+    "check": "astro check && node scripts/content-register.mjs --check",
+    "content:register": "node scripts/content-register.mjs"
+  },
+  "engines": {
+    "node": ">=22.18"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",

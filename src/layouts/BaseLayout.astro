@@ -5,24 +5,34 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { practice } from '../data/practice';
+import { serviceGroups } from '../data/services';
 
 interface Props {
   title: string;
   description: string;
   /** Extra JSON-LD blocks beyond the base MedicalClinic schema. */
   schema?: object[];
-  noindex?: boolean;
 }
 
-const { title, description, schema = [], noindex = false } = Astro.props;
+const { title, description, schema = [] } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
+
+// Private concept demo: keep every page out of search engines. robots.txt and
+// the Cloudflare _headers file say the same; flip all three at launch.
+const ROBOTS = 'noindex, nofollow';
 
 const baseSchema = {
   '@context': 'https://schema.org',
   '@type': 'MedicalClinic',
   name: practice.name,
-  medicalSpecialty: 'Ophthalmologic',
+  url: Astro.site?.toString(),
+  image: practice.assets.building.src,
   telephone: '+1-325-695-2020',
+  faxNumber: '+1-325-695-2326',
+  // schema.org has no ophthalmology value; surgical plus optometric is the
+  // closest valid pair, and knowsAbout carries the specifics.
+  medicalSpecialty: ['https://schema.org/Surgical', 'https://schema.org/Optometric'],
+  knowsAbout: serviceGroups.flatMap((group) => group.services.map((s) => s.title)),
   address: {
     '@type': 'PostalAddress',
     streetAddress: practice.address.street,
@@ -31,7 +41,13 @@ const baseSchema = {
     postalCode: practice.address.zip,
     addressCountry: 'US',
   },
+  geo: { '@type': 'GeoCoordinates', latitude: practice.geo.latitude, longitude: practice.geo.longitude },
+  // Friday's midday break isn't modeled; the visible hours carry it.
+  openingHoursSpecification: practice.hours
+    .filter((h) => h.opens && h.closes)
+    .map((h) => ({ '@type': 'OpeningHoursSpecification', dayOfWeek: h.dayCodes, opens: h.opens, closes: h.closes })),
   areaServed: practice.serviceArea.map((c) => ({ '@type': 'City', name: c })),
+  sameAs: practice.profiles,
 };
 ---
 
@@ -42,7 +58,7 @@ const baseSchema = {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <meta name="robots" content={ROBOTS} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="sitemap" href="/sitemap-index.xml" />
@@ -51,12 +67,8 @@ const baseSchema = {
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:site_name" content={practice.name} />
-    <meta property="og:image" content={practice.assets.team} />
-    <script
-      is:inline
-      type="application/ld+json"
-      set:html={JSON.stringify(baseSchema)}
-    />
+    <meta property="og:image" content={practice.assets.building.src} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(baseSchema)} />
     {schema.map((s) => <script is:inline type="application/ld+json" set:html={JSON.stringify(s)} />)}
   </head>
   <body class="flex min-h-[100dvh] flex-col">

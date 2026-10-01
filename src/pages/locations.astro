@@ -5,9 +5,6 @@ import SectionHeading from '../components/SectionHeading.astro';
 import ImagePlaceholder from '../components/ImagePlaceholder.astro';
 import { practice } from '../data/practice';
 
-const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-  `${practice.name}, ${practice.address.street}, ${practice.address.city}, ${practice.address.state} ${practice.address.zip}`
-)}`;
 ---
 
 <BaseLayout
@@ -36,14 +33,14 @@ const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURICom
         <div class="mt-5 space-y-2 text-lg">
           <p>
             <span class="font-semibold text-navy-900">Phone:</span>
-            <a href={practice.phone.href} class="font-semibold text-navy-700 underline">{practice.phone.display}</a>
+            <a href={practice.links.call} class="font-semibold text-navy-700 underline">{practice.phone.display}</a>
           </p>
           <p class="text-ink-soft">
-            <span class="font-semibold text-navy-900">Fax:</span> pending confirmation
+            <span class="font-semibold text-navy-900">Fax:</span> {practice.fax.display}
           </p>
         </div>
         <a
-          href={mapsHref}
+          href={practice.links.directions}
           rel="noopener"
           class="mt-6 inline-flex items-center gap-2 rounded-md bg-navy-800 px-5 py-3 font-semibold text-white hover:bg-navy-700"
         >
@@ -51,7 +48,7 @@ const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURICom
           Get Directions
         </a>
         <p class="mt-3 text-sm text-ink-soft">
-          Parking information will be added following confirmation with the practice.
+          The clinic and its surgery center share the building on Antilley Road.
         </p>
       </div>
 
@@ -67,14 +64,13 @@ const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURICom
             ))
           }
         </dl>
-        <p class="mt-3 text-sm text-ink-soft">Hours pending confirmation with the practice.</p>
       </div>
 
       <div class="mt-6 rounded-lg border-2 border-navy-800 bg-navy-50 p-6">
         <h2 class="font-serif text-xl font-semibold text-navy-900">Urgent eye problems</h2>
         <p class="mt-2">
           Sudden vision loss, injury, or severe pain: call
-          <a href={practice.phone.href} class="font-semibold underline">{practice.phone.display}</a>
+          <a href={practice.links.call} class="font-semibold underline">{practice.phone.display}</a>
           during office hours or go to the nearest emergency room. In an emergency, call 911.
         </p>
       </div>
@@ -90,15 +86,15 @@ const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURICom
       <div class="rounded-lg border border-sand-200 bg-white p-7">
         <h2 class="font-serif text-2xl font-semibold text-navy-900">Appointments</h2>
         <p class="mt-3 text-ink-soft">
-          Call the office or use the appointment request pathway. A general contact form is
-          deliberately not offered on this demonstration: questions about your eyes belong in a
-          phone call or the secure portal, never an unsecured web form.
+          The office schedules visits by phone. A general contact form is deliberately not offered:
+          questions about your eyes belong in a phone call, not an unsecured web form.
         </p>
         <a
-          href={practice.links.requestAppointment}
-          class="mt-5 inline-flex items-center justify-center rounded-md border-2 border-navy-800 px-6 py-3 font-semibold text-navy-800 hover:bg-white"
+          href={practice.links.call}
+          class="mt-5 inline-flex items-center justify-center gap-2 rounded-md border-2 border-navy-800 px-6 py-3 font-semibold text-navy-800 hover:bg-navy-50"
         >
-          Request an Appointment
+          <Icon name="ph:phone" class="h-5 w-5" aria-hidden="true" />
+          Call {practice.phone.display}
         </a>
       </div>
     </div>

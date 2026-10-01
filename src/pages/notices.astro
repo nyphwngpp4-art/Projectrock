@@ -1,0 +1,71 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { practice } from '../data/practice';
+
+// Demo placeholder. Final wording comes from the practice and its counsel;
+// the point is that these notices live as accessible web pages, with the
+// PDFs kept as downloads.
+const CURRENT_NPP = 'https://irp.cdn-website.com/b1397486/files/uploaded/Notice_of_Privacy_Practices.pdf';
+const CURRENT_NONDISCRIMINATION = 'https://irp.cdn-website.com/b1397486/files/uploaded/Notice_of_Nondiscrimination.pdf';
+---
+
+<BaseLayout
+  title="Patient Notices & Language Assistance | Abilene Eye Institute"
+  description="Notice of Privacy Practices, nondiscrimination notice, language assistance, and electronic disclosure information for Abilene Eye Institute patients."
+>
+  <section class="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+    <h1 class="font-serif text-4xl font-semibold text-navy-900">Patient notices and language assistance</h1>
+    <p class="mt-4 rounded-md bg-sand-100 p-4 text-sm text-ink-soft">
+      Demonstration layout. The practice and its counsel supply the final text of each notice.
+    </p>
+
+    <div class="mt-10 space-y-12 text-lg text-ink-soft">
+      <section aria-labelledby="npp">
+        <h2 id="npp" class="font-serif text-2xl font-semibold text-navy-900">Notice of Privacy Practices</h2>
+        <p class="mt-3">
+          How the practice may use and share your health information, and your rights, including your
+          right to a paper copy. In production the full notice appears here as a web page with its
+          effective date.
+        </p>
+        <p class="mt-3">
+          Your health information may be stored electronically and, if so, is subject to electronic
+          disclosure.
+        </p>
+        <p class="mt-3">
+          <a href={CURRENT_NPP} class="font-semibold text-navy-700 underline">Current notice (PDF, on the practice's website)</a>
+        </p>
+      </section>
+
+      <section aria-labelledby="nondiscrimination">
+        <h2 id="nondiscrimination" class="font-serif text-2xl font-semibold text-navy-900">Nondiscrimination</h2>
+        <p class="mt-3">
+          Abilene Eye Institute complies with applicable federal civil rights laws and does not
+          discriminate on the basis of race, color, national origin, age, disability, or sex.
+        </p>
+        <p class="mt-3">
+          Free aids and services are available to people with disabilities, such as qualified sign
+          language interpreters and information in large print, audio, or accessible electronic formats.
+        </p>
+        <p class="mt-3">
+          <a href={CURRENT_NONDISCRIMINATION} class="font-semibold text-navy-700 underline">Current notice (PDF, on the practice's website)</a>
+        </p>
+      </section>
+
+      <section aria-labelledby="language">
+        <h2 id="language" class="font-serif text-2xl font-semibold text-navy-900">Language assistance</h2>
+        <p class="mt-3">
+          Free language assistance services are available to you. Call
+          <a href={practice.links.call} class="font-semibold text-navy-700 underline">{practice.phone.display}</a>.
+        </p>
+        <p class="mt-3" lang="es">
+          ATENCIÓN: si habla español, tiene a su disposición servicios gratuitos de asistencia
+          lingüística. Llame al {practice.phone.display}.
+        </p>
+        <p class="mt-3 text-base">
+          In production, this section carries the practice's taglines in the 15 languages on the
+          Office for Civil Rights list for Texas.
+        </p>
+      </section>
+    </div>
+  </section>
+</BaseLayout>

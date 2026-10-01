@@ -16,12 +16,18 @@ import { practice } from '../data/practice';
           A regional institution for eye care
         </h1>
         <p class="mt-5 text-lg text-ink-soft">
-          Abilene Eye Institute has served Abilene and the Big Country since 1987, providing medical
+          Abilene Eye Institute has served Abilene and the Big Country since {practice.foundingYear}, providing medical
           and surgical eye care so that patients across the region do not have to travel far from
           home for it.
         </p>
       </div>
-      <img src={practice.assets.building} alt="Abilene Eye Institute building" class="aspect-[4/3] w-full rounded-xl object-cover shadow-xl" />
+      <img
+        src={practice.assets.building.src}
+        alt={practice.assets.building.alt}
+        width={practice.assets.building.width}
+        height={practice.assets.building.height}
+        class="aspect-[4/3] w-full rounded-xl object-cover shadow-xl"
+      />
     </div>
   </section>
 
