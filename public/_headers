@@ -1,0 +1,13 @@
+# Cloudflare Pages response headers.
+# Private concept demo: keep every page out of search engines. The robots meta
+# tag in BaseLayout.astro and public/robots.txt say the same; flip all three at
+# launch (see SEO-PLAN.md).
+/*
+  X-Robots-Tag: noindex, nofollow
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), browsing-topics=()
+
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable

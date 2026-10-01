@@ -1,5 +1,6 @@
-# Stage 1 concept demo: not intended for search indexing until the practice
-# approves launch. Remove the Disallow and keep the Sitemap line at launch.
+# Private concept demo: not for search indexing until the practice approves
+# launch. At launch, remove the Disallow line, the noindex meta tag in
+# BaseLayout.astro, and the X-Robots-Tag in public/_headers.
 User-agent: *
 Disallow: /
 
